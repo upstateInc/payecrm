@@ -1,0 +1,124 @@
+<?php 
+//$this->db->query("select a.id as ModuleId,a.module,a.moduleLink, a.moduleDesc from t_adminModuleAction as a left join  where adminId=1");
+?>
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+            <div class="menu_section">
+              <h3>Navigation</h3>
+              <ul class="nav side-menu">
+                <li><a href="index.html"><i class="fa fa-home"></i> Dashboard </a>
+                <li><a href="admin.html"><i class="fa fa-user"></i> Users </a>
+                <li><a href="customer.html"><i class="fa fa-user"></i> Customer </a>
+                  
+                </li>
+                <li><a><i class="fa fa-user"></i> Utilities <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="affiliates.html">Affiliates</a>
+                    </li>
+                    <li><a href="index.html">Affiliate Groups</a>
+                    </li>
+                    <li><a href="index.html">Center Fees</a>
+                    </li>
+                    <li><a href="index.html">Fees</a>
+                    </li>
+                    <li><a href="index.html">Emails</a>
+                    </li>
+                    <li><a href="index.html">Export</a>
+                    </li>
+                    <li><a href="index.html">Nominees</a>
+                    </li>
+                    <li><a href="index.html">Nominee Groups</a>
+                    </li>
+                    <li><a href="index.html">Qc Reasons</a>
+                    </li>
+                    <li><a href="index.html">System Events</a>
+                    </li>
+                    <li><a href="index.html">System Settings</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-money"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="index.html">Center Report</a>
+                    </li>
+                    <li><a href="index.html">Center Percentage Report</a>
+                    </li>
+                    <li><a href="index.html">Failed Report</a>
+                    </li>
+                    <li><a href="index.html">Invoice(s)</a>
+                    </li>
+                    <li><a href="index.html">Invoice(s) - Generate</a>
+                    </li>
+                    <li><a href="index.html">Invoice(s) - Saved</a>
+                    </li>
+                    <li><a href="index.html">Mid Report</a>
+                    </li>
+                    <li><a href="index.html">Mid Center Report</a>
+                    </li>
+                    <li><a href="index.html">Mid Percentage Report</a>
+                    </li>
+                    <li><a href="index.html">Mid Selection</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-cubes"></i> Products <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="index.html">Master Products</a>
+                    </li>
+                    <li><a href="index.html">Center Products</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-user"></i> Gateways <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="index.html">Gateway</a>
+                    </li>
+                    <li><a href="index.html">Mid Master</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-user"></i> Transactions <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="index.html">Batches</a>
+                    </li>
+                    <li><a href="index.html">Chargebacks</a>
+                    </li>
+                    <li><a href="index.html">Reconciliation</a>
+                    </li>
+                    <li><a href="index.html">Pending Transactions</a>
+                    </li>
+                    <li><a href="index.html">Transactions</a>
+                    </li>
+                    <li><a href="index.html">My Sales</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-user"></i> Call Centers <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="index.html">Allowed IP</a>
+                    </li>
+                    <li><a href="index.html">Center</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-user"></i> Quality Control <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="index.html">Validation</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-user"></i> Tech Support <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="index.html">Validate Transactions</a>
+                    </li>
+                    <li><a href="index.html">Customer Support</a>
+                    </li>
+                    <li><a href="index.html">Customer Support Log</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            
+
+          </div>

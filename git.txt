@@ -1,0 +1,10 @@
+$ cd /c/users/rony/Desktop/payecrm
+$ git init
+$ git clone https://github.com/upstateInc/payecrm.git
+
+$ git add .
+$ git commit -am "Test"
+$ git pull
+# Fix any merge conflicts, if you have a `README.md` locally
+git push -u origin master
+$ git push payecrm master

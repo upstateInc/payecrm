@@ -1,0 +1,165 @@
+ <?php include_once("header.php");  ?>   
+ <script src='https://www.google.com/recaptcha/api.js'></script> 
+  
+  <!--Page Title-->
+  <!--<section id="page-title">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 title-blue">
+          <h2>About Us</h2>
+        </div>
+      </div>
+    </div>
+  </section>-->
+  
+  
+  <!--About Content-->
+  <section id="blue-container-onemonthform">
+    <div class="container">
+      <div class="row">
+      
+      <!--<div class="col-md-6 col-sm-6 col-xs-12 text-center pull-right">
+          <img src="img/about-us.jpg" class="img-responsive" alt="Title">
+        </div>-->
+        
+        <div class="col-md-6 col-md-offset-3">
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+          <h3 style="color:#d88027; font-size:36px; line-height:20px; text-align:center;">Get started with PayeCRM</h3>
+          <p>&nbsp;</p>
+          <!--<p style="color:#fff; text-align:center;">We offer one intuitive place to manage payroll, benefits, and HR for your business. Plus, you get 1 month free.</p> -->
+          
+          <div class="main-login main-center">
+					<form class="" method="post" action="#">
+                    <p>&nbsp;</p>
+						
+						<div class="form-group">
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="name" id="name"  placeholder="Full Name"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="email" id="email"  placeholder="Email Address"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa fa-map" aria-hidden="true"></i></span>
+									<select class="form-control">
+                                        <option value="0" selected="">Select a Country</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="password" id="password"  placeholder="Company Phone"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="confirm" id="confirm"  placeholder="Number of User"/>
+								</div>
+							</div>
+						</div>
+                        
+                        <div class="form-group">
+							<div class="cols-sm-10">
+                               <div style="margin-left:8px;" class="g-recaptcha" data-sitekey="6LfVHRIUAAAAAMigTwJxjAQsGPNkuvnYm1Z5-9F1"></div>
+                            </div>
+                        </div>    
+
+						<div class="form-group ">
+							<a href="https://www.payecrm.com/crm/" target="_blank" type="button" id="button" class="btn btn-primary btn-lg btn-block login-button">Register</a>
+                            
+                            <p style="font-size:12px; color:#666; text-align:center;">1 month free · No credit card required · Secure site</p>
+						</div>
+						
+					</form>
+				</div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  
+  
+  <!--Team Section-->
+  
+  
+  
+  <!--Message-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ <script>
+ $(document).ready(function (e){ 
+ 
+ $("#contact_message").keyup(function(ev){
+ if(ev.keyCode==13)
+ $("button").click();
+ 
+ 
+ }
+ );
+ 
+    
+        $("#contact-form").on('submit',(function(e){
+        e.preventDefault();
+        $.ajax({
+        url: "contactform.php",
+        type: "POST",
+        data:  new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data){        
+        if(data!='success'){
+       $('.alert-danger').html("");
+        //$('.alert-success').html("Message sent!");
+        location.reload();
+        //$('#contact_name').val('');
+         //$('#contact_email').val('');
+          //$('#contact_subject').val('');
+           //$('#contact_message').val('');
+        }
+         else
+         {
+         //alert(data);
+         $('.alert-success').html("");
+         
+        $('.alert-danger').html("Captcha is not verified");
+        }
+        },
+        error: function(){} 	        
+        });
+        }));
+        
+    });   
+
+</script> 
+    
+    <!--Content Section-->
+     
+ <?php include_once("footer.php");  ?>   
