@@ -88,13 +88,13 @@ define('FILENAME_PATTERN','/[\s,$#&\+\-()\[\];\'~`]/');
 define("FLD_PROFILE_IMAGE", "upload/");
 
 /****************Configuration Setting This Part Needs to be changed only when setting Up new Mid***************/
-define('BASEURL', 					'https://www.payecrm.com/crm/');
-define('COMPANYUTILS', 				'https://www.payecrm.com/utils/');
+define('BASEURL', 					'http://localhost/payecrm/crm/');
+define('COMPANYUTILS', 				'http://localhost/payecrm/utils/');
 define('DBHOSTNAME', 				'localhost');
-define('DBUSERNAME', 				'payecrm_master');
-define('DBPASSWORD', 				'UvzeTkMp*(yy');
+define('DBUSERNAME', 				'root');
+define('DBPASSWORD', 				'');
 define('DBNAME', 					'payecrm_master');
-define('COMPANYBASEURL', 			'https://www.payecrm.com/');
+define('COMPANYBASEURL', 			'http://localhost/payecrm/');
 /******************Tables*************/
 define('ADMINUSER','t_admin'); 
 define('ADMINLEVEL','t_adminLevel'); 

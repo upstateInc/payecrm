@@ -1,5 +1,6 @@
 <?php
-		$getModuleName=$this->router->fetch_class();
+		$getModuleName=str_replace("_","-",$this->router->fetch_class());
+		//echo $getModuleName;
 		$getModulePermissionDetails = $this->db->query("select a.id as moduleId, a.module, a.parent, a.weightage, a.moduleLink, a.moduleDesc, a.imageClass
 			from t_module as a 
 			left join t_moduleAction as b on a.id = b.moduleId 
@@ -17,10 +18,10 @@
 			order by a.weightage asc
 		");
 		//print_r($getModulePermissionDetails);
-		
-		if($getModulePermissionDetails->num_rows() < 1){
+		//$this->db->last_query();
+		/*if($getModulePermissionDetails->num_rows() < 1){
 			redirect(base_url().'dashboard');	 
-		}
+		}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
