@@ -1,4 +1,5 @@
 <?php
+		ob_start();
 		$getModuleName=str_replace("_","-",$this->router->fetch_class());
 		//echo $getModuleName;
 		$getModulePermissionDetails = $this->db->query("select a.id as moduleId, a.module, a.parent, a.weightage, a.moduleLink, a.moduleDesc, a.imageClass
