@@ -311,7 +311,7 @@ class Mid_master extends CI_Controller
 		echo 'success';
 	}	
 }
-?>
+
 
 
 
