@@ -213,6 +213,7 @@ class Modules extends CI_Controller
 	function update() {
 		$message_empty = '';
 		$data = array();
+		$id=$this->input->post('id');
 		$row['module'] = $this->input->post('module') ;
 		$row['parent'] = $this->input->post('parent') ;
 		$row['weightage'] = $this->input->post('weightage') ;
@@ -222,6 +223,8 @@ class Modules extends CI_Controller
 		$row['status'] = $this->input->post('status');						
 			
 		$update = $this->common_model->Update_Record($row,$this->table,$id);
+		/*echo $this->db->last_query();
+		exit;*/
 		$message = setMessage('Record updated successfully.',"success");
 		$this->session->set_flashdata('message', $message);
 		redirect(site_url($this->controllerFile));	
