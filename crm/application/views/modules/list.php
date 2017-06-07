@@ -51,7 +51,7 @@
                           <tr class="<?php echo $rowType;?> pointer">
                             
                             <td class=" "><?php echo $row->module;?></td>
-                            <td class=" "><?php echo base_url().$row->moduleLink;?></td>
+                            <td class=" "><?php if($row->moduleLink!="") echo base_url().$row->moduleLink;?></td>
                             <td class=" "><?php echo $row->moduleDesc;?></td>
                             <td class="" align="center">
 							<!--a href="#" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a-->

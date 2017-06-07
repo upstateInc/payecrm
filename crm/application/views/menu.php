@@ -15,7 +15,10 @@
 				foreach($getModuleDetails->result() as $menuParent){
 					//print_r($menuParent);
 				?>
-					<li><a href="<?php echo base_url().$menuParent->moduleLink; ?>"><i class="fa <?php echo $menuParent->imageClass;?>"></i> <?php echo $menuParent->module; ?> </a>
+					<li>
+						<a <?php if($menuParent->moduleLink!=""){ ?> href="<?php echo base_url().$menuParent->moduleLink; ?>" <?php } ?>><i class="fa <?php echo $menuParent->imageClass;?>"></i> <?php echo $menuParent->module; ?> 
+							<?php if($menuParent->moduleLink==""){ ?> <span class="fa fa-chevron-down"></span> <?php } ?>
+						</a>
 						<ul class="nav child_menu" style="display: none">
 						<?php 
 							$getChildModuleDetails=$ci->homes->getMenu($menuParent->moduleId);
