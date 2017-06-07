@@ -1,0 +1,165 @@
+<div class="mainwrapper">
+<div class="col-md-2">
+	<div class="leftpanel">
+		<h5 class="leftpanel-title">Navigation</h5>
+		<ul class="nav nav-pills nav-stacked">
+			<li id="dashboard" class="dashboard"><a href="<?php echo base_url(); ?>dashboard"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+			<?php if($this->session->userdata('ADMIN_COMPANYID')!=""){ ?>
+			<li id="Payment" class="Payment"><a href="<?php echo base_url(); ?>payment"><i class="fa fa-paw"></i><span>Payment</span></a></li>
+			<?php } ?>
+			<!--li class="agentID" id="agentID"><a href="<?php echo base_url(); ?>sales/transaction_code"><i class="fa fa-paw"></i> <span>Temporary Agent ID</span></a></li>
+			<li class="Payment1" id="Payment1"><a href="<?php echo base_url(); ?>payment"><i class="fa fa-paw"></i> <span>Payment</span></a></li>
+			<li class="" id=""><a href="<?php echo base_url(); ?>payment"><i class="fa fa-paw"></i> <span>Payment</span></a></li-->
+			
+			<?php if($this->session->userdata('ADMIN_TYPE')=='superadmin' || $this->session->userdata('ADMIN_TYPE')=='teamlead'){ 
+				if($this->session->userdata('ADMIN_PERMISSION') != "group"){
+			?>
+				<li class="Admin" id="Admin"><a href="<?php echo base_url(); ?>admin"><i class="fa fa-user"></i> <span>Users</span></a></li>
+				<li class="Customer" id="Customer"><a href="<?php echo base_url(); ?>customer"><i class="fa fa-user"></i> <span>Customer</span></a>		</li>
+				<?php } ?>
+			<?php if($this->session->userdata('ADMIN_PERMISSION') == "system" ){?>
+			<li class="parent export emails fees center_fees group group_center system_events system_settings" id="utilities"><a href="#"><i class="fa fa-user"></i> <span>Utilities</span></a>
+				<ul class="children">
+				<?php if($this->session->userdata('ADMIN_PERMISSION') == "system"){?>	
+					<li id="center_fees"><a href="<?php echo base_url(); ?>center_fees"><i class="fa fa-bullhorn"></i> <span>Center Fees</span></a></li>
+					<li id="fees"><a href="<?php echo base_url(); ?>fees"><i class="fa fa-bullhorn"></i> <span>Fees</span></a></li>
+					<li id="emails"><a href="<?php echo base_url(); ?>emails"><i class="fa fa-user"></i> <span>Emails</span></a></li> 
+					<li id="export"><a href="<?php echo base_url(); ?>export"><i class="fa fa-user"></i> <span>Export</span></a></li>
+					<li id="group"><a href="<?php echo base_url(); ?>group"><i class="fa fa-user"></i> <span>Group</span></a></li> 
+					<li id="group_center"><a href="<?php echo base_url(); ?>group_center"><i class="fa fa-user"></i> <span>Group Center</span></a></li> 
+					<li id="system_events"><a href="<?php echo base_url(); ?>system-events"><i class="fa fa-user"></i> <span>System Events</span></a></li>
+
+					<li id="system_settings"><a href="<?php echo base_url(); ?>system-settings"><i class="fa fa-user"></i> <span>System Settings</span></a></li>					
+				<?php } ?>
+				</ul>
+			</li>
+			<?php } ?>	
+			<?php if($this->session->userdata('ADMIN_PERMISSION') == "system" || $this->session->userdata('ADMIN_PERMISSION') == "group"){ ?>
+			<li class="parent mid_percentage_report center_percentage_report Center_report saved_invoice Mid_Report invoice generate_invoice mid_center_report failed_report mid_selection" id="reports"><a href="#"><i class="fa fa-money"></i> <span>Reports</span></a>
+				<ul class="children">
+					
+					<li id="Center_report"><a href="<?php echo base_url(); ?>center-report"><i class="fa fa-money"></i> <span>Center Report</span></a></li>
+					
+					<li id="center_percentage_report"><a href="<?php echo base_url(); ?>center_percentage_report"><i class="fa fa-money"></i> <span>Center Percentage Report</span></a></li>
+					<?php if($this->session->userdata('ADMIN_PERMISSION') != "group"){ ?>
+					<li id="failed_report"><a href="<?php echo base_url(); ?>failed_report"><i class="fa fa-money"></i> <span>Failed Report</span></a></li>
+					
+					<li id="invoice"><a href="<?php echo base_url(); ?>invoice"><i class="fa fa-money"></i> <span>Invoice(s)</span></a></li>
+					
+					<li id="generate_invoice"><a href="<?php echo base_url(); ?>generate-invoice"><i class="fa fa-money"></i> <span> Invoice(s) - Generate</span></a></li> 
+					<?php } ?>
+					<li id="saved_invoice"><a href="<?php echo base_url(); ?>saved_invoice"><i class="fa fa-money"></i> <span>Invoice(s) - Saved</span></a></li>
+					<?php if($this->session->userdata('ADMIN_PERMISSION') != "group"){ ?>
+					<li id="Mid_Report"><a href="<?php echo base_url(); ?>mid-report"><i class="fa fa-money"></i> <span>Mid Report</span></a></li>
+					
+					<li id="mid_center_report"><a href="<?php echo base_url(); ?>mid-center-report"><i class="fa fa-money"></i> <span>Mid Center Report</span></a></li>
+					
+					<li id="mid_percentage_report"><a href="<?php echo base_url(); ?>mid_percentage_report"><i class="fa fa-money"></i> <span>Mid Percentage Report</span></a></li>
+					
+					<li id="mid_selection"><a href="<?php echo base_url(); ?>mid-selection"><i class="fa fa-money"></i> <span>Mid Selection</span></a></li>
+					<?php } ?>
+				</ul>
+			</li>	
+			<?php } 
+			if($this->session->userdata('ADMIN_PERMISSION') != "group"){
+			?>			
+			<li class="parent category product product_center" id="productSection"><a href="#"><i class="fa fa-cubes"></i> <span>Products</span></a>
+				<ul class="children">
+				<?php if($this->session->userdata('ADMIN_PERMISSION') == "system"){?>
+					<li id="product"><a href="<?php echo base_url(); ?>product"><i class="fa fa-list"></i> <span>Master Products</span></a></li>
+				<?php } ?>
+					<li id="product_center"><a href="<?php echo base_url(); ?>product_center"><i class="fa fa-list"></i> <span>Center Products</span></a></li> 
+				</ul>
+			</li>
+			
+			<?php } } ?>
+			<?php  if($this->session->userdata('ADMIN_TYPE')=='superadmin'){?>
+				<?php if($this->session->userdata('ADMIN_PERMISSION') == "system"){?>
+				<li class="parent Gateway Mid_Master" id="Gateways"><a href="#"><i class="fa fa-user"></i> <span>Gateways</span></a>
+					<ul class="children">
+						<li id="Gateway"><a href="<?php echo base_url(); ?>gateway"><i class="fa fa-bullhorn"></i> <span>Gateway</span></a></li>
+						<li id="Mid_Master"><a href="<?php echo base_url(); ?>mid-master"><i class="fa fa-bullhorn"></i> <span>Mid Master</span></a></li>
+						
+					</ul>
+				</li>
+			<?php } }?>
+				<li class="parent Batches chargebacks master_error reconciliation master_success rejected  saved_invoice MYSALES" id="Transactions"><a href="#"><i class="fa fa-user"></i> <span>Transactions</span></a>
+					<ul class="children">
+					<?php if($this->session->userdata('ADMIN_PERMISSION') == "system"){?>
+						<li id="Batches"><a href="<?php echo base_url(); ?>batches"><i class="fa fa-bullhorn"></i> <span>Batches</span></a></li>
+					
+						<li id="chargebacks"><a href="<?php echo base_url(); ?>chargebacks"><i class="fa fa-bullhorn"></i> <span>Chargebacks</span></a></li>
+						<li id="reconciliation"><a href="<?php echo base_url(); ?>reconciliation"><i class="fa fa-bullhorn"></i> <span>Reconciliation</span></a></li>
+					<?php } ?>
+					<?php  if($this->session->userdata('ADMIN_TYPE')=='superadmin' || $this->session->userdata('ADMIN_TYPE')=='teamlead'){?>					
+						<!--li id="invoice"><a href="<?php echo base_url(); ?>invoice"><i class="fa fa-bullhorn"></i> <span>Invoice</span></a></li>
+						<li id="saved_invoice"><a href="<?php echo base_url(); ?>saved_invoice"><i class="fa fa-user"></i> <span>Invoices(Saved)</span></a></li-->
+						<li id="master_success"><a href="<?php echo base_url(); ?>master_success"><i class="fa fa-bullhorn"></i> <span>Transactions</span></a></li>
+					<?php } 
+					if($this->session->userdata('ADMIN_PERMISSION') != "group"){
+					?>	
+						<li id="MYSALES"><a href="<?php echo base_url(); ?>sales/my-sales"><i class="fa fa-money"></i> <span>My Sales</span></a></li>
+					<?php } ?>
+					</ul>
+				</li>
+			<?php if($this->session->userdata('ADMIN_PERMISSION') == "system"){ ?>	
+				<li class="parent allowed_ip center" id="Call_Centers"><a href="#"><i class="fa fa-user"></i> <span>Call Centers</span></a>
+					<ul class="children">
+						<li id="allowed_ip"><a href="<?php echo base_url(); ?>allowed_ip"><i class="fa fa-bullhorn"></i> <span>Allowed IP</span></a></li>	
+						<li id="center"><a href="<?php echo base_url(); ?>center"><i class="fa fa-bullhorn"></i> <span>Center</span></a></li>				
+					</ul>
+				</li>
+			<?php } ?>
+			<?php  if($this->session->userdata('ADMIN_TYPE')=='superadmin' || $this->session->userdata('ADMIN_TYPE')=='quality'){?>
+			<?php if($this->session->userdata('ADMIN_PERMISSION') == "system"){?>
+				<li class="parent validation" id="quality_control"><a href="#"><i class="fa fa-user"></i> <span>Quality Control</span></a>
+					<ul class="children">
+						<li id="validation"><a href="<?php echo base_url(); ?>validation"><i class="fa fa-bullhorn"></i> <span>Validation</span></a></li>
+					</ul>
+				</li>
+			<?php } ?>
+			<?php } ?>
+			<?php  if($this->session->userdata('ADMIN_PERMISSION') == "system"){ ?>
+			<li class="parent customer_support authorized_transactions customer_support_log " id="tech_support"><a href="#"><i class="fa fa-user"></i> <span>Tech Support</span></a>
+				<ul class="children">
+					<?php if($this->session->userdata('ADMIN_TECH_SUPPORT')=='Y'){ ?>
+					<li id="authorized_transactions"><a href="<?php echo base_url(); ?>authorized-transactions"><i class="fa fa-bullhorn"></i> <span>Authorized Transactions</span></a></li>
+					<?php } ?>
+					<li id="customer_support"><a href="<?php echo base_url(); ?>customer-support"><i class="fa fa-bullhorn"></i> <span>Customer Support</span></a></li>
+					
+					<?php if($this->session->userdata('ADMIN_TYPE')=='superadmin'){ ?>
+						<li id="customer_support_log"><a href="<?php echo base_url(); ?>customer_support_log"><i class="fa fa-bullhorn"></i> <span>Customer Support Log</span></a></li>
+					<?php } ?>
+				</ul>
+			</li>
+			<?php } ?>
+		</ul>
+	</div>
+				
+</div>				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+			
+			
+			
+			
+			
+			
+			
+	

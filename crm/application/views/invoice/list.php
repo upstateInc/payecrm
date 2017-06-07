@@ -1,0 +1,553 @@
+<?php 
+$this->load->view('header');
+$this->load->view('left');
+if($selectedEmails1!=""){
+	$pieceEmail=explode(",",$selectedEmails1);
+}
+?>
+<style>
+	.redClass{color:red;}
+</style>
+<div class="mainpanel">
+	<?php
+      if($query->num_rows() == 0){
+	   		echo '<div class="alert alert-warning no-radius no-margin padding-sm" role="alert"><strong><i class="fa fa-warning"></i> Warning:</strong> No Records Found.</div>';
+	  } 
+		
+		
+			
+	 ?>
+<!------------------------search section------------------------>			
+			<div class="errSuccessRoutineMsg alert alert-warning no-radius no-margin padding-sm" style="display:none;"></div>
+			<form class="form-inline" role="form" name="frmSearch" id="frmSearch" action="<?php echo base_url().$this->controllerFile; ?>" method="POST" >
+			<div class="well">
+			<input type="hidden" name="hdnOrderBy" id="hdnOrderBy" value="<?php echo $order_by; ?>"/>
+			<input type="hidden" name="hdnOrderByFld" id="hdnOrderByFld" value="<?php echo $order_by_fld; ?>"/>						
+			<input type="hidden" name="search" value="search"/>
+			<input type="hidden" name="selectedEmails1" id="selectedEmails1" value="<?php echo $selectedEmails1;?>"/>
+			<input type="hidden" name="invoiceDay" id="invoiceDay" value="<?php echo $invoiceDay;?>"/>
+			
+			
+			<div class="form-group">
+			
+			<select onChange="change_days(this.value);" name="companyID" class="form-control" id="companyID">
+				<option value="">Select Center</option>
+				<?php foreach ($companyIDName->result() as $row){?>
+					<option <?php if($companyID==$row->companyID){?> selected <?php } ?> value="<?php echo $row->companyID; ?>"><?php echo $row->companyID; ?></option>
+				<?php } ?>
+			</select>
+			</div>
+
+			
+			<div class="form-group">			
+				<input type="text" id="datepiker" name="start_date" placeholder="Start date" value="<?php echo $start_date;?>" class="dp form-control">
+			</div>
+			<div class="form-group">
+				<input type="text" style="width:80px;" id="no_of_days" name="no_of_days" class="form-control" placeholder="No of Days" value="<?php echo $no_of_days;?>" onchange="change_date();"/>
+			</div>
+			<div class="form-group">			
+				<input type="text" id="datepiker1" name="end_date" placeholder="End end" value="<?php echo $end_date;?>" class="dp form-control" >
+			</div>
+			
+			
+			
+			
+			<div class="form-group" >
+			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
+			</div>
+			<div class="form-group" >
+				<a href="<?php echo base_url().$this->controllerFile; ?>" class="btn btn-primary"><i class="fa fa-align-justify"></i> Clear </a>
+				</div>
+			</form>	
+			<?php if($companyID!=""){
+				$tempInvoiceGenerationId = time();
+				$recordExist=$this->db->query("select * from t_savedInvoice where INVOICECOMPANYID like '%".$companyID."%' and STARTDATE like '%".$start_date."%'")->row_array();
+				//print_r($recordExist);
+				//echo $recordExist['status'];
+				$totalInvoiceRecords = count($recordExist);
+			?>		
+			<div class="form-group" >
+				<?php if($totalInvoiceRecords > 0){?>
+					<?php if($recordExist['status']=='Y'){ ?>
+					<a href="<?php echo base_url().$this->controllerFile; ?>edit_saved_invoice/<?php echo $recordExist['tempInvoiceGenerationId'];?>" class="btn btn-primary"><i class="fa fa-align-justify"></i> View Invoice </a>
+					<?php }else{ ?>
+						<br/>
+						<a href="<?php echo base_url().$this->controllerFile; ?>edit_saved_invoice/<?php echo $recordExist['tempInvoiceGenerationId'];?>" class="btn btn-primary"><i class="fa fa-align-justify"></i> Existing Invoice </a>
+						
+						<a href="<?php echo base_url().$this->controllerFile; ?>edit/<?php echo $recordExist['tempInvoiceGenerationId'];?>" class="btn btn-primary" onclick="return confirm('This will create a new invoice.Creating new invoice will delete the existing invoice with this record.Are you sure you want to proceed?');"><i class="fa fa-align-justify"></i> Recreate Invoice </a>
+					<?php } ?>
+				<?php } else if($totalInvoiceRecords == 0){?>
+					<a href="<?php echo base_url().$this->controllerFile; ?>edit/<?php echo $tempInvoiceGenerationId;?>" class="btn btn-primary"><i class="fa fa-align-justify"></i> Create Invoice </a>
+				<?php } ?>
+			</div>
+			<?php } ?>
+	
+				
+				
+				
+				
+			</div>
+			
+<!------------------------------Bucket Block---------------------------------------->			
+			<?php if($where_clause==""){ $where_clause = 1;}
+			$totAuth=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Authorize"')->row()->sum;
+			$totCap=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Capture"')->row()->sum;
+			$totRef=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Refund"')->row()->sum;
+			$totChrgBak=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Chargeback"')->row()->sum;
+			$totSale=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Sale"')->row()->sum;
+			$totSettle=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Settlement"')->row()->sum;
+			$totVoid=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Void"')->row()->sum;
+			$totFailed=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and status="Failed"')->row()->sum;
+			$totEchk=$this->db->query('SELECT sum(grossPrice) as sum from '.$this->table.' where '.$where_clause.' and paymentType="echecking"')->row()->sum;
+			?>
+			
+			
+			
+			<h5 style="text-align:center;color:#339933;">
+			
+			<?php //echo $end_date;?>
+			
+			<?php $settleCnt=$this->db->query('SELECT * from '.$this->table.' where '.$where_clause.' and status="Settlement"')->num_rows();?>
+			<?php $refCnt=$this->db->query('SELECT * from '.$this->table.' where '.$where_clause.' and status="Refund"')->num_rows();?>			
+			<?php $chrgbakCnt=$this->db->query('SELECT * from '.$this->table.' where '.$where_clause.' and status="Chargeback"')->num_rows();?>			
+			<span style="color:#339933;">
+			<?php
+				$totGrossSale=$totSettle+$totRef+$totChrgBak;
+			?>
+			<!--Gross Settled Sales: $<?php echo number_format($totGrossSale,2);?>(<?php echo $settleCnt+$refCnt+$chrgbakCnt;?>)
+			</span-->
+			<?php if($totSettle!=""){?> 
+			<span style="color:#339933;">Settle: $<?php echo number_format($totSettle,2);?>(<?php echo $this->db->query('SELECT * from '.$this->table.' where '.$where_clause.' and status="Settlement"')->num_rows();?>)</span>&nbsp;&nbsp;
+			<?php }?>
+			<?php if($totRef!=""){?> 
+			<span style="color:#FF0000;">Refund: $<?php echo number_format(abs($totRef),2);?>(<?php echo $refNo=$this->db->query('SELECT * from '.$this->table.' where '.$where_clause.' and status="Refund"')->num_rows();?>)</span>&nbsp;&nbsp;
+			<?php 
+				if($refNo!="" && $companyID!=""){
+					$refundfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$companyID.'%"  and fees_type="Refund"')->row();
+					if($refundfees->fee_type=='$'){
+						$REFUNDFEEVAL = $refundfees->fee;
+						$totRefundFee=$refundfees->fee*$refNo;
+					}
+					else if($refundfees->fee_type=='%')
+					{
+						$totRefundFee=$refundfees->fee*$refNo/100;
+					}
+					?>
+					<span style="color:#FF0000;">Refund Fee: $<?php echo number_format($totRefundFee,2);?> </span>
+				<?php }
+			?>
+			<?php }?>
+			<?php if($totChrgBak!=""){?> 
+			<span style="color:#FF0000;">Chargeback: $<?php echo number_format(abs($totChrgBak),2);?>(<?php echo $chrgBackN0=$this->db->query('SELECT * from '.$this->table.' where '.$where_clause.' and status="Chargeback"')->num_rows();?>)</span>&nbsp;&nbsp;
+			<?php 
+				if($companyID!=""){
+					$refundfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$companyID.'%"  and fees_type="Chargeback"')->row();
+					$CHARGEBACHEACH = $refundfees->fee;
+					if($refundfees->fee_type=='$'){
+						$totChrgbakFee=$refundfees->fee*$chrgBackN0;
+					}
+					else if($refundfees->fee_type=='%')
+					{
+						$totChrgbakFee=$refundfees->fee*$chrgBackN0/100;
+					}
+					if($chrgBackN0!=""){
+					?>
+					<span style="color:#FF0000;">Chargeback Fee: $<?php echo number_format($totChrgbakFee,2);?> </span>
+				<?php } }
+			}
+			if($companyID!="" ){
+				if($totGrossSale > 0){
+				$reservePercentage=$this->db->query("select fee,fee_type from t_center_fees where companyID like '%".$companyID."%'  and fees_type='Reserve'")->row();
+				$reservePercentageVal=$reservePercentage->fee;		
+			
+				$invoice_type=$this->db->query('SELECT invoice_type from  t_centerdb where companyID like "%'.$companyID.'%" ')->row();
+				$invoice_typeVal=$invoice_type->invoice_type;			
+			
+					$refundfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$companyID.'%"  and fees_type="Wire" and status="Y"')->row();
+					$totWireFee=$refundfees->fee;					
+					
+					$achfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$companyID.'%"  and fees_type="ACH" and status="Y"')->row();
+					$totACHFee=$achfees->fee;
+					
+					?>
+					<span style="color:#FF0000;">Wire Fee: $<?php echo number_format($totWireFee,2);?> </span><br/>
+					<?php if($totACHFee > 0){?>
+						<span style="color:#FF0000;">ACH Fee: $<?php echo number_format($totACHFee,2);?> </span>
+					<?php } ?>
+				<?php
+			} }
+			if($companyID!="" ){	
+					$refundfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$companyID.'%"  and fees_type="Processing"')->row();
+					$COMMISSIONFEE = $refundfees->fee;
+					if($totGrossSale > 0){
+					if($invoice_typeVal=='Net'){
+						
+						$totProcessingFee=($totSettle+$totRef)*$refundfees->fee/100;
+						$totalReserve=($totSettle+$totRef)*$reservePercentage->fee/100;
+					}
+					if($invoice_typeVal=='Gross'){
+						$totProcessingFee=$totSettle*$refundfees->fee/100;
+						$totalReserve=$totSettle*$reservePercentage->fee/100;
+					}
+					$totalReserve=round($totalReserve,2);
+					?>
+					
+					<span style="color:#FF0000;">Processing Fee: $<?php echo number_format($totProcessingFee,2);?> </span>
+					<?php if($totalReserve!=0 || $totalReserve!=""){ ?><span style="color:#FF0000;">Rolling Reserve: $<?php echo number_format($totalReserve,2);?> </span><?php } }?>
+				<?php
+				}				
+			?>
+			<span>Net Payout: $<?php echo number_format($totGrossSale-($totRefundFee+$totChrgbakFee+$totWireFee+$totProcessingFee+$totACHFee+$totalReserve),2);?></span>
+			</h5>	
+			<?php
+			
+			if($companyID!=""){
+				$NETPAYOUT = $totGrossSale-($totRefundFee+$totChrgbakFee+$totWireFee+$totProcessingFee+$totACHFee+$totalReserve);
+				$netDeduction = $totRefundFee+$totChrgbakFee+$totWireFee+$totProcessingFee+$totACHFee+$totalReserve;
+				$TOTALGOODSALE = $totSettle+$totRef;
+				$this->session->set_userdata('INVOICECOMPANYID', $companyID);
+				$this->session->set_userdata('STARTDATE', $start_date);
+				$this->session->set_userdata('ENDDATE', $end_date);
+				//echo $this->session->userdata('ENDDATE');
+				$this->session->set_userdata('NOOFDAYS', $no_of_days);
+				$this->session->set_userdata('COMMISSIONFEE', $COMMISSIONFEE);
+				$this->session->set_userdata('TOTALSALE', number_format($totSettle,2));
+				$this->session->set_userdata('NOREFUND', $refNo);
+				$this->session->set_userdata('NOCHARGEBACK', $chrgBackN0);
+				$this->session->set_userdata('REFUNDEACH', $REFUNDFEEVAL);
+				$this->session->set_userdata('CHARGEBACHEACH', $CHARGEBACHEACH);
+				$this->session->set_userdata('TOTALGOODSALE', number_format($TOTALGOODSALE,2));
+				//$this->session->set_userdata('TOTALGOODSALE', $TOTALGOODSALE);
+				$this->session->set_userdata('ACHFEE', number_format($totACHFee,2));
+				$this->session->set_userdata('WIREFEE', number_format($totWireFee,2));
+				$this->session->set_userdata('PROCESSINGFEE', number_format($totProcessingFee,2));
+				$this->session->set_userdata('TOTALREFUND', number_format($totRefundFee,2));
+				$this->session->set_userdata('TOTALCHARGEBACK', number_format($totChrgbakFee,2));
+				$this->session->set_userdata('NETDEDUCTION', number_format($netDeduction,2));
+				
+				$this->session->set_userdata('NETREFUND', number_format($totRef,2));
+				$this->session->set_userdata('NETCHARGEBACK', number_format($totChrgBak,2));
+				$this->session->set_userdata('TOTALGROSSSALE', number_format($totGrossSale,2));
+				$this->session->set_userdata('NETPAYOUT', $NETPAYOUT);
+				$this->session->set_userdata('INVOICETYPE', $invoice_typeVal);
+				$this->session->set_userdata('TOTALRESERVE', $totalReserve);
+				$this->session->set_userdata('RESERVEPERCENTAGE', $reservePercentageVal);				
+			}
+			?>			
+<!---------------------------------------------------------------------------------->	
+			<?php if($query->num_rows() > 0){?>
+            <div class="table-responsive">
+            
+            <table class="table">
+              <thead>
+                <tr>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='gatewayID')?'bold':'normal'?>;" href="javascript: hdnSort('gatewayID','<?php echo $order_by; ?>');">Gateway</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='companyID')?'bold':'normal'?>;" href="javascript: hdnSort('companyID','<?php echo $order_by; ?>');">Center</a></th>
+                    <th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='rec_crt_date')?'bold':'normal'?>;" href="javascript: hdnSort('rec_crt_date','<?php echo $order_by; ?>');">Date</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='customer_name')?'bold':'normal'?>;" href="javascript: hdnSort('customer_name','<?php echo $order_by; ?>');">Name</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='customer_phone')?'bold':'normal'?>;" href="javascript: hdnSort('customer_phone','<?php echo $order_by; ?>');">Phone</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='customer_email')?'bold':'normal'?>;" href="javascript: hdnSort('customer_email','<?php echo $order_by; ?>');">Email</a></th>
+					<!--th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='product_name')?'bold':'normal'?>;" href="javascript: hdnSort('product_name','<?php echo $order_by; ?>');">Product</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='productDuration')?'bold':'normal'?>;" href="javascript: hdnSort('productDuration','<?php echo $order_by; ?>');">Duration</a></th-->
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='grossPrice')?'bold':'normal'?>;" href="javascript: hdnSort('grossPrice','<?php echo $order_by; ?>');">Price</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='status')?'bold':'normal'?>;" href="javascript: hdnSort('status','<?php echo $order_by; ?>');">Status</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='')?'bold':'normal'?>;" href="javascript: hdnSort('','<?php echo $order_by; ?>');">Action</a></th>
+					<!--th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='cardType')?'bold':'normal'?>;" href="javascript: hdnSort('cardType','<?php echo $order_by; ?>');">Card</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='customer_state')?'bold':'normal'?>;" href="javascript: hdnSort('customer_state','<?php echo $order_by; ?>');">State</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='validated')?'bold':'normal'?>;" href="javascript: hdnSort('validated','<?php echo $order_by; ?>');">Validated</a></th>
+					<!--th>Status</th>
+					<th colspan="2">Action</th-->
+                </tr>
+              </thead>
+              <tbody>
+                
+              <?php foreach ($query->result() as $row){   ?> 
+                <tr id="recordRow<?php echo $row->id; ?>" <?php if($row->status=="Refund" || $row->status=="Void" || $row->status=="Chargeback"){?> class="redClass" <?php } ?>>
+					<td><?php echo $row->gatewayID; ?></td>
+					<td><?php echo $row->companyID; ?></td>
+					<td><?php echo date('m-d-Y',strtotime($row->rec_crt_date));?></td>
+					<td><?php echo $row->fname.' '.$row->lname; ?></td>
+					<td><?php echo $row->customer_phone; ?></td>
+					<td><?php echo $row->customer_email; ?></td>
+					<!--td><?php echo $row->product_name; ?></td>
+					<td><?php echo $row->productDuration; ?></td-->
+					<td><?php echo '$'. number_format(abs($row->grossPrice), 2); ?></td>
+					<td><?php echo $row->status; ?></td>
+					<td><a href="<?php echo site_url($this->controllerFile.'pop/'.$row->id);?>" class="btn btn-primary btn-xs" target="_blank"><span class="glyphicon glyphicon-search"></span></a></td>
+					<!--td><?php echo $row->cardType; ?></td>
+					<td><?php echo $row->customer_state; ?></td>
+					<td><input type="checkbox" id="check<?php echo $row->id;?>" name="customerEmail" value="<?php echo $row->id; ?>" <?php if(is_array($pieceEmail)){if(in_array($row->id,$pieceEmail)){ echo "checked disabled"; } } ?> onclick="makedRecord('<?php echo $row->id; ?>');"></td-->
+                </tr>
+               <?php } ?>  
+                
+              </tbody>
+            </table>
+           
+            </div>
+		
+		<?php echo $paginator; ?>			
+    <?php } ?>
+            
+            
+                                   
+			</div>
+        </div><!-- mainpanel -->
+    </div><!-- mainwrapper -->
+</section>
+
+
+        
+        
+        
+
+        
+<script language="javascript">
+function change_days(center){
+	//alert(center);
+	$.post('<?php echo base_url().$this->controllerFile; ?>get_center_days', 'companyID='+center, function(data){
+		if(data){
+			var obj = JSON.parse(data);
+			//alert(data['invoice_period']);
+			//alert(obj.invoice_period);
+			jQuery("#no_of_days").val(obj.invoice_period);
+			jQuery("#invoiceDay").val(obj.invoice_day);
+			var d1 = $('#datepiker').val();
+			//alert(d1);
+			if(d1!=""){
+				get_center_days(obj.invoice_period);
+			}
+			var invoiceDay=obj.invoice_day;
+			var weeklyDAys;
+			if(invoiceDay==0){
+				weeklyDAys = 'Sunday';
+			}	
+			if(invoiceDay==1){
+				weeklyDAys = 'Monday';
+			}	
+			if(invoiceDay==2){
+				weeklyDAys = 'Tuesday';
+			}	
+			if(invoiceDay==3){
+				weeklyDAys = 'Wednesday';
+			}	
+			if(invoiceDay==4){
+				weeklyDAys = 'Thusday';
+			}	
+			if(invoiceDay==5){
+				weeklyDAys = 'Friday';
+			}	
+			if(invoiceDay==6){
+				weeklyDAys = 'Saturday';
+			}
+			$("#errMsgDiv").show("");
+			$('#errMsgDiv').html("Selected Center Start Day is set as "+weeklyDAys+"..");
+			$('#errMsgDiv').delay(5000).fadeOut('slow', function() {});			
+		}
+	});
+}
+$('#datepiker1').on("change", function () {
+	var startDate = $('#datepiker').val();
+	var d1 = $('#datepiker').datepicker('getDate');
+
+	var d2 = $('#datepiker1').datepicker('getDate');
+	var diff = 0;
+	if (d1 && d2) {
+		diff = Math.floor((d2.getTime() - d1.getTime()) / 86400000); // ms per day
+	}
+	//alert(diff);
+	if(startDate!="" && diff > 0){
+		diff = diff +1;
+		jQuery("#no_of_days").val(diff);
+	}
+});
+$('#datepiker').on("change", function () {
+	//$("#datepiker11").val($(this).val());
+	var d1 = $('#datepiker').datepicker('getDate');
+	var n = d1.getDay();
+	var invoiceDay=$('#invoiceDay').val();
+	var weeklyDAys;
+	if(invoiceDay==0){
+		weeklyDAys = 'Sunday';
+	}	
+	if(invoiceDay==1){
+		weeklyDAys = 'Monday';
+	}	
+	if(invoiceDay==2){
+		weeklyDAys = 'Tuesday';
+	}	
+	if(invoiceDay==3){
+		weeklyDAys = 'Wednesday';
+	}	
+	if(invoiceDay==4){
+		weeklyDAys = 'Thusday';
+	}	
+	if(invoiceDay==5){
+		weeklyDAys = 'Friday';
+	}	
+	if(invoiceDay==6){
+		weeklyDAys = 'Saturday';
+	}
+	if(n!=invoiceDay){
+			$("#errMsgDiv").show("");
+			$('#errMsgDiv').html("Selected Center Start Day is set as "+weeklyDAys+" Please Select Center Start Day to continue..");
+			$('#errMsgDiv').delay(5000).fadeOut('slow', function() {});
+		//alert("Selected Center Start Day is set as "+weeklyDAys+" Please Select Center Start Day to continue..");
+		$('#datepiker').val("");
+		$('#datepiker1').val("");
+		//location.reload();
+		var invoiceMatch = "N";
+		return false;
+		
+	}
+	
+	days = jQuery("#no_of_days").val();
+	if(days!="" && invoiceMatch!="N"){
+		get_center_days(days);
+	}
+});
+//$('#no_of_days').on("change", function () {	
+function get_center_days(days){
+	//alert(days);
+	var d1 = $('#datepiker').datepicker('getDate');
+	if(d1!=""){
+	var d = $('#datepiker').val();
+	if(days=="") days = jQuery("#no_of_days").val();
+	days=days-1;
+	var date =  new Date(d);
+	var x =date.getTime();
+	var newDate = new Date(x + days * 24*60*60*1000);
+	var month = newDate.getMonth()+1;
+	
+	if (month < 10) month = '0' + month;
+	var day = newDate.getDate();
+	if (day < 10) day = '0' + day;
+	var year = newDate.getFullYear();
+
+	//var returnDate = parseInt(month)+'/'+parseInt(day)+'/'+parseInt(year);
+	var returnDate = month+'/'+day+'/'+year;
+	jQuery("#datepiker1").val(returnDate);
+	}
+}
+//});
+function makedRecord(id){
+	document.getElementById("check"+id).disabled= true;
+    var TheTextBox = document.getElementById("selectedEmails");
+    selectedEmails.value = TheTextBox.value + ',' + id;
+    selectedEmails1.value = TheTextBox.value + ',' + id;
+	var newVal = document.getElementById("selectedEmails");
+	$.post('<?php echo base_url().$this->controllerFile; ?>saveEmailId', 'val='+newVal.value, function(data){
+	});	
+	
+}
+function change_trans_status(id, val)
+{
+	//alert(val);	
+	//$('#statusDiv'+id).html('<img src="<?php echo base_url(); ?>images/admin/loading.gif" alt=""/>');
+	$.post('<?php echo base_url().$this->controllerFile; ?>change_trans_type', 'id='+id+'&val='+val, function(data){
+		if(data) 
+		{
+				if(val=='Refund' || val=='Void' || val=='Chargeback'){
+					//alert("recordRow"+id);
+					$("#recordRow"+id+"").addClass('redClass');				
+					$("#status"+id+"").attr('disabled', true);				
+				}else{
+					$("#recordRow"+id+"").removeClass('redClass');
+				}
+				$("#msgDiv").show("");
+				$('#msgDiv').html('Status Changed Successfully');
+				$('#msgDiv').delay(5000).fadeOut('slow', function() {});
+		}
+	});
+}
+function hdnSort(name, type)
+{
+	//alert(name);
+	document.frmSearch.hdnOrderByFld.value = name;
+	if(type == 'ASC')
+		document.frmSearch.hdnOrderBy.value = 'DESC';
+	else
+		document.frmSearch.hdnOrderBy.value = 'ASC';
+	document.frmSearch.submit();
+}
+function change_status(id, val)
+{	
+	$('#statusDiv'+id).html('<img src="<?php echo base_url(); ?>images/admin/loading.gif" alt=""/>');
+	$.post('<?php echo base_url().$this->controllerFile; ?>/change_is_active', 'id='+id+'&val='+val, function(data){
+		if(data) 
+		{
+			if(val == 'Y')
+			{
+				var val2 = "'N'";
+				var text = '<a href="javascript: void(0);" onclick="javascript: change_status('+id+','+val2+');"><?php print active_icon(); ?></a>';
+				$('#statusDiv'+id).html(text);
+				$("#msgDiv").show("");
+				$('#msgDiv').html('Record activated successfully');
+				$('#msgDiv').delay(5000).fadeOut('slow', function() {});
+				
+			}
+			else
+			{
+				var val2 = "'Y'";
+				var text = '<a href="javascript: void(0);" onclick="javascript: change_status('+id+','+val2+');"><?php print inactive_icon(); ?></a>';
+				$('#statusDiv'+id).html(text);
+				$("#msgDiv").show("");
+				$('#msgDiv').html('Record inactivated successfully');
+				$('#msgDiv').delay(5000).fadeOut('slow', function() {});
+				
+			}
+		}
+	});
+}
+</script>
+<script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	// When the document is ready
+	$(document).ready(function () {
+		$('#datepiker1').datepicker({
+			dateFormat: 'mm-dd-yyyy'
+		});
+		$('#datepiker').datepicker({
+			dateFormat: 'mm-dd-yyyy',
+			minDate: new Date(),
+		}); 
+		$('.dp').on('change', function () {
+			$('.datepicker').hide();
+			var startDate = new Date($('#datepiker').val());
+			var endDate = new Date($('#datepiker1').val());
+			if(startDate!="" && endDate!=''){
+				if (startDate > endDate){
+					//alert('End Date Connot be Less than Start Date');
+					// Do something
+					jQuery(".errSuccessRoutineMsg").show();
+					jQuery(".errSuccessRoutineMsg").html('End Date Connot be Less than Start Date');
+					jQuery("#datepiker1").val("");
+					jQuery("#no_of_days").val("");
+					setTimeout(function() {
+						$('.errSuccessRoutineMsg').fadeOut('fast');
+					}, 5000);
+				}
+			}			
+		});
+	});
+	$("#companyID").on('change', function(){
+		$("#companyID1").val($(this).val());
+	});	
+	$("#datepiker").on('change', function(){
+		$("#datepiker11").val($(this).val());
+	});	
+	$("#datepiker1").on('change', function(){
+		$("#datepiker111").val($(this).val());
+	});
+</script>
+        
+<?php $this->load->view('footer');?>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

@@ -1,0 +1,258 @@
+<?php $this->load->view('header');?>
+<?php $this->load->view('left');?>
+<style>
+	.redClass{color:red;}
+</style>
+<div class="mainpanel">
+	<?php
+      if($query->num_rows() == 0){
+	   		echo '<div class="alert alert-warning no-radius no-margin padding-sm" role="alert"><strong><i class="fa fa-warning"></i> Warning:</strong> No Records Found.</div>';
+	  } 
+		
+		
+			
+	 ?>
+<!------------------------search section------------------------>			
+			<div class="errSuccessRoutineMsg alert alert-warning no-radius no-margin padding-sm" style="display:none;"></div>
+			<form class="form-inline" role="form" name="frmSearch" id="frmSearch" action="<?php echo base_url().$this->controllerFile; ?>" method="POST" >
+			<div class="well">
+			<input type="hidden" name="hdnOrderBy" id="hdnOrderBy" value="<?php echo $order_by; ?>"/>
+			<input type="hidden" name="hdnOrderByFld" id="hdnOrderByFld" value="<?php echo $order_by_fld; ?>"/>						
+			<input type="hidden" name="search" value="search"/>
+			<div class="form-group">
+			<label class="sr-only" for="exampleInputEmail2">gatewayName</label>
+			<select name="gatewayName" class="form-control">
+				<option value="">Select Gateway</option>
+				<?php foreach ($gateway->result() as $row){?>
+					<option <?php if($gatewayName==$row->gatewayID){?> selected <?php } ?> value="<?php echo $row->gatewayID; ?>"><?php echo $row->gatewayID; ?></option>
+				<?php } ?>
+			</select>
+			</div>
+			
+			<div class="form-group">
+			
+			<select name="companyID" class="form-control" id="companyID">
+				<option value="">Select Center</option>
+				<?php foreach ($companyIDName->result() as $row){?>
+					<option <?php if($companyID==$row->companyID){?> selected <?php } ?> value="<?php echo $row->companyID; ?>"><?php echo $row->companyID; ?></option>
+				<?php } ?>
+			</select>
+			</div>
+
+			
+			<div class="form-group">
+			
+			<input type="text" id="datepiker" name="start_date" placeholder="Start date" value="<?php echo $start_date;?>" class="dp form-control">
+			</div>
+
+			<div class="form-group">
+			
+			<input type="text" id="datepiker1" name="end_date" placeholder="End end" value="<?php echo $end_date;?>" class="dp form-control" >
+			</div>
+
+			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
+			
+			</form>
+			<br/>
+			<br/>	
+				<form class="form-inline" role="form" name="frmSearch" id="frmSearch" action="<?php echo base_url().$this->controllerFile; ?>download" method="POST" >
+							<div class="form-group"></div>
+			<div class="form-group"></div>
+			<div class="form-group"></div>
+			<div class="form-group"></div>
+			<div class="form-group"></div>
+			<div class="form-group"></div>
+			<div class="form-group"></div>
+			<div class="form-group"></div>
+
+				<input type="hidden" name="companyID" id="companyID1" value="<?php echo $companyID;?>"/>
+				<input type="hidden" name="start_date" id="datepiker11" value="<?php echo $start_date;?>"/>
+				<input type="hidden" name="end_date" id="datepiker111" value="<?php echo $end_date;?>"/>
+				<div class="form-group">
+				<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Download Report</button>
+				</div>
+				<div class="form-group">
+				<a href="<?php echo base_url().$this->controllerFile; ?>" class="btn btn-primary"><i class="fa fa-align-justify"></i> Clear </a>
+				</div>
+				</form>
+				
+				
+			</div>
+			
+			
+			
+<!-------------------------------------------------------------->	
+			<?php if($query->num_rows() > 0){?>
+            <div class="table-responsive">
+            
+            <table class="table">
+              <thead>
+                <tr>
+					<!--th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='gatewayID')?'bold':'normal'?>;" href="javascript: hdnSort('gatewayID','<?php echo $order_by; ?>');">Gateway</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='companyID')?'bold':'normal'?>;" href="javascript: hdnSort('companyID','<?php echo $order_by; ?>');">Center</a></th-->
+                    <th>Date</th>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Product</th>
+					<th>Duration</th>
+					<th>Price</th>
+					<th>Card</th>
+					<th>State</th>
+					<!--th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='validated')?'bold':'normal'?>;" href="javascript: hdnSort('validated','<?php echo $order_by; ?>');">Validated</a></th>
+					<!--th>Status</th>
+					<th colspan="2">Action</th-->
+                </tr>
+              </thead>
+              <tbody>
+                
+              <?php foreach ($query->result() as $row){   ?> 
+                <tr id="recordRow<?php echo $row->id; ?>" <?php if($row->status=="Refund" || $row->status=="Void" || $row->status=="Chargeback"){?> class="redClass" <?php } ?>>
+					<!--td><?php echo $row->gatewayID; ?></td>
+					<td><?php echo $row->companyID; ?></td-->
+					<td><?php echo date('m-d-Y',strtotime($row->rec_crt_date));?></td>
+					<td><?php echo $row->customer_name; ?></td>
+					<td><?php echo $row->customer_phone; ?></td>
+					<td><?php echo $row->customer_email; ?></td>
+					<td><?php echo $row->product_name; ?></td>
+					<td><?php echo $row->productDuration; ?></td>
+					<td><?php echo '$'. number_format($row->grossPrice, 2); ?></td>
+					<td><?php echo $row->cardType; ?></td>
+					<td><?php echo $row->customer_state; ?></td>
+					
+                </tr>
+               <?php } ?>  
+                
+              </tbody>
+            </table>
+           
+            </div>
+		
+		<?php echo $paginator; ?>			
+    <?php } ?>
+            
+            
+                                   
+			</div>
+        </div><!-- mainpanel -->
+    </div><!-- mainwrapper -->
+</section>
+
+
+        
+        
+        
+
+        
+<script language="javascript">
+function change_trans_status(id, val)
+{
+	//alert(val);	
+	//$('#statusDiv'+id).html('<img src="<?php echo base_url(); ?>images/admin/loading.gif" alt=""/>');
+	$.post('<?php echo base_url().$this->controllerFile; ?>change_trans_type', 'id='+id+'&val='+val, function(data){
+		if(data) 
+		{
+				if(val=='Refund' || val=='Void' || val=='Chargeback'){
+					//alert("recordRow"+id);
+					$("#recordRow"+id+"").addClass('redClass');				
+					$("#status"+id+"").attr('disabled', true);				
+				}else{
+					$("#recordRow"+id+"").removeClass('redClass');
+				}
+				$("#msgDiv").show("");
+				$('#msgDiv').html('Status Changed Successfully');
+				$('#msgDiv').delay(5000).fadeOut('slow', function() {});
+		}
+	});
+}
+function hdnSort(name, type)
+{
+	//alert(name);
+	document.frmSearch.hdnOrderByFld.value = name;
+	if(type == 'ASC')
+		document.frmSearch.hdnOrderBy.value = 'DESC';
+	else
+		document.frmSearch.hdnOrderBy.value = 'ASC';
+	document.frmSearch.submit();
+}
+function change_status(id, val)
+{	
+	$('#statusDiv'+id).html('<img src="<?php echo base_url(); ?>images/admin/loading.gif" alt=""/>');
+	$.post('<?php echo base_url().$this->controllerFile; ?>/change_is_active', 'id='+id+'&val='+val, function(data){
+		if(data) 
+		{
+			if(val == 'Y')
+			{
+				var val2 = "'N'";
+				var text = '<a href="javascript: void(0);" onclick="javascript: change_status('+id+','+val2+');"><?php print active_icon(); ?></a>';
+				$('#statusDiv'+id).html(text);
+				$("#msgDiv").show("");
+				$('#msgDiv').html('Record activated successfully');
+				$('#msgDiv').delay(5000).fadeOut('slow', function() {});
+				
+			}
+			else
+			{
+				var val2 = "'Y'";
+				var text = '<a href="javascript: void(0);" onclick="javascript: change_status('+id+','+val2+');"><?php print inactive_icon(); ?></a>';
+				$('#statusDiv'+id).html(text);
+				$("#msgDiv").show("");
+				$('#msgDiv').html('Record inactivated successfully');
+				$('#msgDiv').delay(5000).fadeOut('slow', function() {});
+				
+			}
+		}
+	});
+}
+</script>
+<script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	// When the document is ready
+	$(document).ready(function () {
+		$('#datepiker1').datepicker({
+			format: "mm-dd-yyyy"
+		});
+		$('#datepiker').datepicker({
+			format: "mm-dd-yyyy",
+			minDate: new Date(),
+		}); 
+		$('.dp').on('change', function () {
+			$('.datepicker').hide();
+			var startDate = new Date($('#datepiker').val());
+			var endDate = new Date($('#datepiker1').val());
+			if(startDate!="" && endDate!=''){
+				if (startDate > endDate){
+					//alert('End Date Connot be Less than Start Date');
+					// Do something
+					jQuery(".errSuccessRoutineMsg").show();
+					jQuery(".errSuccessRoutineMsg").html('End Date Connot be Less than Start Date');
+					jQuery("#datepiker1").val("");
+					setTimeout(function() {
+						$('.errSuccessRoutineMsg').fadeOut('fast');
+					}, 5000);
+				}
+			}			
+		});
+	});
+	$("#companyID").on('change', function(){
+		$("#companyID1").val($(this).val());
+	});	
+	$("#datepiker").on('change', function(){
+		$("#datepiker11").val($(this).val());
+	});	
+	$("#datepiker1").on('change', function(){
+		$("#datepiker111").val($(this).val());
+	});
+</script>
+        
+<?php $this->load->view('footer');?>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
