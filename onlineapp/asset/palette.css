@@ -1,0 +1,270 @@
+/*
+ *  Color Scheme
+ *
+ */
+/* Selected text */
+::-moz-selection {
+  background: #464646;
+  color: #ffffff;
+  text-shadow: none;
+}
+::selection {
+  background: #464646;
+  color: #ffffff;
+  text-shadow: none;
+}
+/*********************/
+/* Spinnner */
+.loader:after {
+  border: solid 1px transparent;
+  border-top-color: #8bc447;
+  border-left-color: #8bc447;
+}
+/*********************/
+/* Link hover */
+a:active,
+a:focus,
+a:hover {
+  color: #70a335;
+}
+/*********************/
+/* Layout top header */
+.app > .header {
+  background-color: #8bc447;
+}
+.app > .header .brand {
+  background-color: #84c03e;
+}
+.app > .header .brand a,
+.app > .header .brand a:hover {
+  color: rgba(249, 252, 245, 0.9);
+}
+.app > .header .navbar-toggle,
+.app > .header .nav > li > a,
+.app > .header .bg-none {
+  color: #f9fcf5;
+}
+@media screen and (min-width: 768px) {
+  .header .nav > li > a:hover,
+  .header .nav > li > a:focus,
+  .header .nav .open > a,
+  .header .nav .open > a:hover,
+  .header .nav .open > a:focus {
+    background-color: #80ba3c;
+  }
+}
+.header .open a.toggle-search,
+.header a.toggle-search:hover {
+  background-color: #80ba3c;
+}
+/*********************/
+/* Layout Sidebar */
+.sidebar {
+  background-color: #464646;
+  color: #e2e4f6;
+}
+.sidebar a,
+.sidebar .nav-title {
+  color: #e2e4f6;
+}
+.compact-menu .main-navigation > ul > li {
+  border-bottom: 1px solid #414141;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.app:not(.small-menu) .main-navigation > ul > li > ul > li.active a,
+.app:not(.small-menu) .main-navigation > ul > li > ul > li a:hover {
+  color: #ffffff;
+}
+.main-navigation > ul > li:hover > a {
+  color: #ffffff;
+}
+.main-navigation > ul > li .sub-menu {
+  background-color: #4a4a4a;
+}
+@media screen and (min-width: 768px) {
+  .small-menu .main-navigation > ul > li.open {
+    background-color: #414141;
+  }
+  .small-menu .main-navigation .nav > li > .sub-menu .sub-menu {
+    background-color: #464646;
+  }
+}
+/*********************/
+/* Gallery hover overlay */
+.gallery .overlay {
+  background-color: #464646;
+  background-color: rgba(70, 70, 70, 0.9);
+}
+/*********************/
+/* Skin button style */
+.btn-color {
+  color: #ffffff;
+  background-color: #464646;
+  border-color: #464646;
+}
+a.btn-color {
+  color: #ffffff;
+}
+.btn-color:hover,
+.btn-color:focus,
+.btn-color:active,
+.btn-color.active,
+.open .dropdown-toggle.btn-color {
+  color: #ffffff;
+  background-color: #393939;
+  background-image: none;
+  border-color: #393939;
+}
+.btn-color.disabled,
+.btn-color[disabled],
+fieldset[disabled] .btn-color,
+.btn-color.disabled:hover,
+.btn-color[disabled]:hover,
+fieldset[disabled] .btn-color:hover,
+.btn-color.disabled:focus,
+.btn-color[disabled]:focus,
+fieldset[disabled] .btn-color:focus,
+.btn-color.disabled:active,
+.btn-color[disabled]:active,
+fieldset[disabled] .btn-color:active,
+.btn-color.disabled.active,
+.btn-color[disabled].active,
+fieldset[disabled] .btn-color.active {
+  background-color: #464646;
+  border-color: #464646;
+}
+.btn-color.btn-outline {
+  background-color: transparent;
+  color: #464646;
+}
+.btn-color.btn-outline:hover,
+.btn-color.btn-outline:focus,
+.btn-color.btn-outline:active,
+.btn-color.btn-outline.active {
+  background-color: #464646;
+  color: #ffffff;
+}
+/*********************/
+/* Skin text color style */
+.color {
+  color: #464646;
+}
+/*********************/
+/* Skin nestable style */
+#nestable2 .dd-handle {
+  color: #c8c8c8;
+  border: 1px solid #464646;
+  background-color: #464646;
+}
+#nestable2 .dd-handle:hover {
+  background-color: #535353;
+}
+/*********************/
+/* Skin slider style */
+.slider-color .slider-selection {
+  background-color: #464646;
+}
+.slider-color .slider-handle {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px, #464646 0px 0px 0px 1px;
+}
+/*********************/
+/* Skin panel style */
+.panel-color {
+  border-color: #464646;
+}
+.panel-color > .panel-heading {
+  color: #c8c8c8;
+  background-color: #464646;
+  border-color: #464646;
+}
+.panel-color > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #464646;
+}
+.panel-color > .panel-heading a {
+  color: #c8c8c8;
+}
+.panel-color > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #464646;
+}
+/*********************/
+/* Skin label style */
+.label-color {
+  background-color: #464646;
+}
+.label-color[href]:hover,
+.label-color[href]:focus {
+  background-color: #2d2d2d;
+}
+/*********************/
+/* Skin background color */
+.bg-color {
+  background-color: #464646;
+  color: #c8c8c8;
+}
+.bg-color a {
+  color: #c8c8c8;
+}
+.bg-color a:active,
+.bg-color a:focus,
+.bg-color a:hover {
+  color: #aeaeae;
+  text-decoration: none;
+  outline: 0;
+}
+.bg-color .nav > li:hover > a,
+.bg-color .nav > li:focus > a,
+.bg-color .nav > li:active > a,
+.bg-color .nav > li.active > a,
+.bg-color .nav > li > a:hover,
+.bg-color .nav > li > a:focus {
+  background-color: #3e3e3e;
+}
+/*********************/
+/* Skin pagination style */
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  border-color: #464646;
+  background-color: #464646;
+  color: #ffffff;
+}
+/*********************/
+/* Skin progress bar style */
+.progress-bar-color {
+  background-color: #464646;
+}
+/*********************/
+/* Skin chart elements */
+.morris-hover.morris-default-style {
+  border-color: #464646;
+  background-color: #464646;
+  background-color: rgba(70, 70, 70, 0.9);
+}
+.morris-hover.morris-default-style a {
+  color: #ffffff;
+}
+#jqstooltip {
+  background-color: #464646;
+  border-color: #464646;
+}
+#tooltip {
+  background-color: #464646;
+  color: #ffffff;
+}
+#tooltip:before {
+  border-color: transparent #464646 transparent transparent;
+}
+/*********************/
+.jvectormap-label {
+  border: solid 1px #464646;
+  background-color: #464646;
+  color: white;
+}
+.jvectormap-zoomin,
+.jvectormap-zoomout {
+  background-color: #464646;
+  color: white;
+}

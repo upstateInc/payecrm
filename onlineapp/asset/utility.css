@@ -1,0 +1,188 @@
+/*
+ * Parsley Validation States
+ *
+ */
+.parsley-errors-list {
+  list-style: none;
+  padding: 0;
+}
+.parsley-success {
+  border-color: #8bc447;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.parsley-success:focus {
+  border-color: #71a434;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #bcdd94;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #bcdd94;
+}
+.parsley-warning {
+  border-color: #70a335;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.parsley-warning:focus {
+  border-color: #567d28;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #a3d06e;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #a3d06e;
+}
+.parsley-error {
+  border-color: #da3e16;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.parsley-error:focus {
+  border-color: #ac3111;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f08266;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f08266;
+}
+.parsley-error-list {
+  color: #a94442;
+}
+/* Short Form */
+
+.form-group {
+  margin-bottom:20px;
+}
+
+.parsley-errors-list.filled {
+  margin-top:9px;
+  z-index: 100;
+  background: black;
+  display: inline-block;
+  padding: 4px 32px;
+  color: white;
+  font-weight: 600;
+  border-radius: 3px;
+  background: #d61919;
+  position:absolute;
+}
+
+.parsley-errors-list.filled {
+  visibility: visible!important;
+}
+
+.parsley-errors-list.filled {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
+
+.parsley-errors-list.filled {
+  -webkit-animation-duration: 500ms;
+  animation-duration: 500ms;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.parsley-errors-list.filled:after {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(0, 0, 0, 0);
+  border-bottom-color: #d61919;
+  border-width: 6px;
+  margin-left: -6px;
+}
+
+/* Login Form */
+
+.forgot-link {
+  position: relative;
+  z-index:20;
+}
+
+/* Merchant Application */
+
+.mb18 {
+  margin-bottom:18px;
+}
+
+.mt18 {
+  margin-top:18px;
+}
+
+.clearl {
+  clear:left;
+}
+
+.clearr {
+  clear:right;
+}
+
+.clearb {
+  clear:both;
+}
+
+p.inline {
+  display:inline;
+}
+
+.well.bg-white {
+  background: white;
+}
+
+.btn.adjusted {
+  padding:9px 12px 10px 12px;
+}
+
+.docusign-logo {
+  max-width:200px;
+}
+
+.dz-default.dz-message {
+  display:none;
+}
+
+.upload-docs-div {
+  cursor: pointer;
+}
+
+.short-form .alert-success {
+  background-color:#67A2C8;
+  border-color:#67A2C8;
+  color:#fff;
+}
+
+#form-doc-upload.upload-docs div.upload-docs-div:hover {
+  background-color:#f8f8f8;
+}
+
+#form-doc-upload.upload-docs div.upload-docs-div.upload-docs-complete:hover {
+  background-color:#4b7890;
+}
+
+#form-doc-upload.upload-docs {
+  border:none;
+}
+
+#form-doc-upload.upload-docs div.upload-docs-div {
+  width:100%;
+  background-color: white;
+  display: inline-block;
+  float: left;
+  text-align: center;
+  background-image:url(../../images/upload-docs-icon.png);
+  background-repeat: no-repeat;
+  background-position: 50% 82%;
+  padding-bottom: 50px;
+  font-size: 1.4em;
+  font-weight: bold;
+  border: 1px solid #e3e6f3;
+  border-radius: 5px;
+}
+
+#form-doc-upload.upload-docs div.upload-docs-div.upload-docs-complete {
+  color:white;
+  background-color: #4b7890;
+  background-image: url(../../images/backgrounds/upload-docs-completed.png);
+  background-position: 50% 55%;
+}
+
+#form-doc-upload .file-upload-progress {
+  display:none !important;
+}

@@ -1,0 +1,117 @@
+form.form-submitted input.ng-invalid, input.ng-dirty.ng-invalid,
+form.form-submitted textarea.ng-invalid, textarea.ng-dirty.ng-invalid,
+form.form-submitted select.ng-invalid, select.ng-dirty.ng-invalid {
+  border: 1px solid red; }
+
+form.form-submitted input[type=radio].ng-invalid, input[type=radio].ng-dirty.ng-invalid,
+form.form-submitted input[type=checkbox].ng-invalid, input[type=checkbox].ng-dirty.ng-invalid {
+  outline: 1px solid red; }
+
+.upload-docs {
+  border: 1px solid red;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative; }
+  .upload-docs div.upload-docs-div {
+    background-color: #ebebeb;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    background-image: url(../images/backgrounds/upload-docs-icon.png);
+    background-repeat: no-repeat;
+    background-position: 50% 95%;
+    padding-bottom: 50px;
+    font-size: 1.4em;
+    font-weight: bold; }
+    .upload-docs div.upload-docs-div img {
+      display: block;
+      margin: 0 auto;
+      padding: 35px 0;
+      height: 36px; }
+    .upload-docs div.upload-docs-div.upload-docs-complete {
+      background-color: #acd179;
+      background-image: url(../images/backgrounds/upload-docs-completed.png);
+      background-position: 50% 50%; }
+      .upload-docs div.upload-docs-div.upload-docs-complete img {
+        visibility: hidden; }
+  .upload-docs input[type=file], .upload-docs input[type=submit] {
+    display: none; }
+
+.file-upload-progress {
+  display: none;
+  background-color: white;
+  border: 1px solid #acd179;
+  text-align: center;
+  position: fixed;
+  left: 35%;
+  top: 50%;
+  width: 30%;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold; }
+  .file-upload-progress span {
+    background-color: #acd179;
+    border: 4px solid white;
+    border-width: 2px 0;
+    width: 0;
+    height: 16px;
+    display: block;
+    padding: 0;
+    margin: 0 0px;
+    position: absolute;
+    z-index: 1; }
+  .file-upload-progress p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2; }
+
+.phub-modal {
+  display: none; }
+  .phub-modal .phub-modal-shadow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-color: black;
+    z-index: 100; }
+  .phub-modal .phub-modal-window {
+    background-color: #9dd576;
+    left: 35%;
+    min-height: 2em;
+    min-width: 20em;
+    opacity: 1;
+    position: fixed;
+    text-align: center;
+    top: 30%;
+    width: 30%;
+    z-index: 1000; }
+    .phub-modal .phub-modal-window .phub-modal-msg {
+      color: white;
+      font-size: 1.4em;
+      font-weight: bold;
+      padding: 1em;
+      margin: 1em;
+      text-align: center; }
+    .phub-modal .phub-modal-window .phub-modal-button {
+      background-color: #82b15e;
+      border: medium none;
+      bottom: 1em;
+      color: white;
+      height: 2em;
+      left: 40%;
+      width: 20%;
+      margin: 1em; }
+
+.ui-datepicker .ui-datepicker-month, .ui-datepicker .ui-datepicker-year {
+  color: black; }
+
+[data-date-picker][readonly]:not([disabled]) {
+  cursor: pointer; }
+
+/*# sourceMappingURL=phubfront.css.map */

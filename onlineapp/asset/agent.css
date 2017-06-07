@@ -1,0 +1,476 @@
+/*
+
+Agent ID's:
+1316 = Shopify
+1106 = The Transaction Group
+0001-0001 = First American Merchant
+0001-0002 = The High Risk Guys
+0001-0003 = Marijuana Merchant Account
+
+*/
+body[class*="agent-"].short-form,
+.bg-primary[class*="agent-"].short-form {
+  background: #fff;
+}
+
+body[class*="agent-"].short-form .main-content,
+.bg-primary[class*="agent-"].short-form .main-content {
+  background: #fff;
+}
+
+body[class*="agent-"].short-form .main-content .panel,
+.bg-primary[class*="agent-"].short-form .main-content .panel {
+  border-color: #e3e6f2;
+}
+
+body[class*="agent-"] .navbar-brand,
+.bg-primary[class*="agent-"] .navbar-brand {
+  line-height: 50px;
+}
+
+body[class*="agent-"] .navbar-brand .heading-font,
+.bg-primary[class*="agent-"] .navbar-brand .heading-font {
+  display: inline-block;
+  text-indent: -9999em;
+}
+
+body[class*="agent-"] .bg-primary,
+.bg-primary[class*="agent-"] .bg-primary {
+  background-color: #ffffff;
+  color: #ffffff;
+}
+
+body[class*="agent-"] .btn-primary,
+.bg-primary[class*="agent-"] .btn-primary {
+  color: #ffffff;
+  background-color: #4fc3dc;
+  border-color: #4fc3dc;
+}
+
+body[class*="agent-"] .btn-success,
+.bg-primary[class*="agent-"] .btn-success {
+  color: #ffffff;
+  background-color: #4fc3dc;
+  border-color: #4fc3dc;
+}
+
+body[class*="agent-"] .app > .header,
+.bg-primary[class*="agent-"] .app > .header {
+  background-color: #fff;
+  border-bottom: 1px solid #e3e6f2;
+}
+
+body[class*="agent-"] .app > .header .header-avatar,
+.bg-primary[class*="agent-"] .app > .header .header-avatar {
+  border: 1px solid #e3e6f2;
+}
+
+body[class*="agent-"] .app > .header .nav .open a,
+.bg-primary[class*="agent-"] .app > .header .nav .open a {
+  background-color: #dcdff0;
+}
+
+body[class*="agent-"] .app > .header .nav .open ul li a,
+.bg-primary[class*="agent-"] .app > .header .nav .open ul li a {
+  background-color: #fff;
+}
+
+body[class*="agent-"] .app > .header .nav .open ul li a:hover,
+.bg-primary[class*="agent-"] .app > .header .nav .open ul li a:hover {
+  background-color: #e3e6f2;
+}
+
+body[class*="agent-"] .app > .header .nav > li > a,
+.bg-primary[class*="agent-"] .app > .header .nav > li > a {
+  color: #59595a;
+}
+
+body[class*="agent-"] .app > .header .nav > li > a:hover,
+.bg-primary[class*="agent-"] .app > .header .nav > li > a:hover {
+  background-color: #dcdff0;
+}
+
+body[class*="agent-"] .app > .header .brand,
+.bg-primary[class*="agent-"] .app > .header .brand {
+  background-color: #fff;
+}
+
+.short-form,
+body:not([class*="agent-"]),
+body.short-form.agent-0001 {
+  background: #f1f4f9;
+}
+
+.short-form .main-content,
+body:not([class*="agent-"]) .main-content,
+body.short-form.agent-0001 .main-content {
+  background: #f1f4f9;
+}
+
+.short-form .main-content .panel,
+body:not([class*="agent-"]) .main-content .panel,
+body.short-form.agent-0001 .main-content .panel {
+  border-color: transparent;
+}
+
+.short-form .navbar-brand,
+body:not([class*="agent-"]) .navbar-brand,
+body.short-form.agent-0001 .navbar-brand {
+  line-height: 50px;
+}
+
+.short-form .navbar-brand .heading-font,
+body:not([class*="agent-"]) .navbar-brand .heading-font,
+body.short-form.agent-0001 .navbar-brand .heading-font {
+  display: inline-block;
+  text-indent: -9999em;
+}
+
+.short-form .bg-primary,
+body:not([class*="agent-"]) .bg-primary,
+body.short-form.agent-0001 .bg-primary {
+  background-color: #333;
+  color: #ffffff;
+}
+
+.short-form .btn-primary,
+body:not([class*="agent-"]) .btn-primary,
+body.short-form.agent-0001 .btn-primary {
+  color: #ffffff;
+  background-color: #67A2C8;
+  border-color: #67A2C8;
+}
+
+.short-form .btn-success,
+body:not([class*="agent-"]) .btn-success,
+body.short-form.agent-0001 .btn-success {
+  color: #ffffff;
+  background-color: #67A2C8;
+  border-color: #67A2C8;
+}
+
+.short-form .app > .header,
+body:not([class*="agent-"]) .app > .header,
+body.short-form.agent-0001 .app > .header {
+  background-color: #101010;
+  border-bottom: none;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  
+}
+
+.short-form .app > .header .header-avatar,
+body:not([class*="agent-"]) .app > .header .header-avatar,
+body.short-form.agent-0001 .app > .header .header-avatar {
+  border: none;
+}
+
+.short-form .app > .header .nav .open a,
+body:not([class*="agent-"]) .app > .header .nav .open a,
+body.short-form.agent-0001 .app > .header .nav .open a {
+  background-color: #3a5c6e;
+}
+
+.short-form .app > .header .nav .open ul li a,
+body:not([class*="agent-"]) .app > .header .nav .open ul li a,
+body.short-form.agent-0001 .app > .header .nav .open ul li a {
+  background-color: #fff;
+}
+
+.short-form .app > .header .nav .open ul li a:hover,
+body:not([class*="agent-"]) .app > .header .nav .open ul li a:hover,
+body.short-form.agent-0001 .app > .header .nav .open ul li a:hover {
+  background-color: #e3e6f2;
+}
+
+.short-form .app > .header .nav > li > a,
+body:not([class*="agent-"]) .app > .header .nav > li > a,
+body.short-form.agent-0001 .app > .header .nav > li > a {
+  color: #fff;
+}
+
+.short-form .app > .header .nav > li > a:hover,
+body:not([class*="agent-"]) .app > .header .nav > li > a:hover,
+body.short-form.agent-0001 .app > .header .nav > li > a:hover {
+  /*background-color: #3a5c6e;*/
+}
+
+.short-form .app > .header .brand,
+body:not([class*="agent-"]) .app > .header .brand,
+body.short-form.agent-0001 .app > .header .brand {
+  /*background-color: #3a5c6e;*/
+}
+
+.short-form.agent-0001,
+.bg-primary.agent-0001 {
+  background: #f1f4f9;
+}
+
+.short-form.agent-0001 .main-content,
+.bg-primary.agent-0001 .main-content {
+  background: #f1f4f9;
+}
+
+.short-form.agent-0001 .main-content .panel,
+.bg-primary.agent-0001 .main-content .panel {
+  border-color: transparent;
+}
+
+.short-form.agent-0001 .navbar-brand,
+.bg-primary.agent-0001 .navbar-brand {
+  line-height: 50px;
+}
+
+.short-form.agent-0001 .navbar-brand .heading-font,
+.bg-primary.agent-0001 .navbar-brand .heading-font {
+  display: inline-block;
+  text-indent: -9999em;
+}
+
+.short-form.agent-0001 .bg-primary,
+.bg-primary.agent-0001 .bg-primary {
+  background-color: #8bc447;
+  color: #ffffff;
+}
+
+.short-form.agent-0001 .btn-primary,
+.bg-primary.agent-0001 .btn-primary {
+  color: #ffffff;
+  background-color: #8bc447;
+  border-color: #8bc447;
+}
+
+.short-form.agent-0001 .btn-success,
+.bg-primary.agent-0001 .btn-success {
+  color: #ffffff;
+  background-color: #8bc447;
+  border-color: #8bc447;
+}
+
+.short-form.agent-0001 .app > .header,
+.bg-primary.agent-0001 .app > .header {
+  background-color: #8bc447;
+  border-bottom: none;
+}
+
+.short-form.agent-0001 .app > .header .header-avatar,
+.bg-primary.agent-0001 .app > .header .header-avatar {
+  border: none;
+}
+
+.short-form.agent-0001 .app > .header .nav .open a,
+.bg-primary.agent-0001 .app > .header .nav .open a {
+  background-color: #80ba3c;
+}
+
+.short-form.agent-0001 .app > .header .nav .open ul li a,
+.bg-primary.agent-0001 .app > .header .nav .open ul li a {
+  background-color: #fff;
+}
+
+.short-form.agent-0001 .app > .header .nav .open ul li a:hover,
+.bg-primary.agent-0001 .app > .header .nav .open ul li a:hover {
+  background-color: #e3e6f2;
+}
+
+.short-form.agent-0001 .app > .header .nav > li > a,
+.bg-primary.agent-0001 .app > .header .nav > li > a {
+  color: #fff;
+}
+
+.short-form.agent-0001 .app > .header .nav > li > a:hover,
+.bg-primary.agent-0001 .app > .header .nav > li > a:hover {
+  background-color: #dcdff0;
+}
+
+.short-form.agent-0001 .app > .header .brand,
+.bg-primary.agent-0001 .app > .header .brand {
+  background-color: #84c03e;
+}
+
+.agent-0001-0002.short-form,
+.bg-primary.agent-0001-0002.short-form {
+  background: #fff;
+}
+
+.agent-0001-0002.short-form .main-content,
+.bg-primary.agent-0001-0002.short-form .main-content {
+  background: #fff;
+}
+
+.agent-0001-0002.short-form .main-content .panel,
+.bg-primary.agent-0001-0002.short-form .main-content .panel {
+  border-color: #e3e6f2;
+}
+
+.agent-0001-0002 .navbar-brand,
+.bg-primary.agent-0001-0002 .navbar-brand {
+  line-height: 50px;
+}
+
+.agent-0001-0002 .navbar-brand .heading-font,
+.bg-primary.agent-0001-0002 .navbar-brand .heading-font {
+  display: inline-block;
+  text-indent: -9999em;
+}
+
+.agent-0001-0002 .bg-primary,
+.bg-primary.agent-0001-0002 .bg-primary {
+  background-color: #3a444a;
+  color: #ffffff;
+}
+
+.agent-0001-0002 .btn-primary,
+.bg-primary.agent-0001-0002 .btn-primary {
+  color: #ffffff;
+  background-color: #fc5012;
+  border-color: #fc5012;
+}
+
+.agent-0001-0002 .btn-success,
+.bg-primary.agent-0001-0002 .btn-success {
+  color: #ffffff;
+  background-color: #fc5012;
+  border-color: #fc5012;
+}
+
+.agent-0001-0002 .app > .header,
+.bg-primary.agent-0001-0002 .app > .header {
+  background-color: #fff;
+  border-bottom: 1px solid #e3e6f2;
+}
+
+.agent-0001-0002 .app > .header .header-avatar,
+.bg-primary.agent-0001-0002 .app > .header .header-avatar {
+  border: 1px solid #e3e6f2;
+}
+
+.agent-0001-0002 .app > .header .nav .open a,
+.bg-primary.agent-0001-0002 .app > .header .nav .open a {
+  background-color: #dcdff0;
+}
+
+.agent-0001-0002 .app > .header .nav .open ul li a,
+.bg-primary.agent-0001-0002 .app > .header .nav .open ul li a {
+  background-color: #fff;
+}
+
+.agent-0001-0002 .app > .header .nav .open ul li a:hover,
+.bg-primary.agent-0001-0002 .app > .header .nav .open ul li a:hover {
+  background-color: #e3e6f2;
+}
+
+.agent-0001-0002 .app > .header .nav > li > a,
+.bg-primary.agent-0001-0002 .app > .header .nav > li > a {
+  color: #59595a;
+  background-color: unset !important;
+}
+
+.agent-0001-0002 .app > .header .nav > li > a:hover,
+.bg-primary.agent-0001-0002 .app > .header .nav > li > a:hover {
+  background-color: unset !important;
+}
+
+.agent-0001-0002 .app > .header .brand,
+.bg-primary.agent-0001-0002 .app > .header .brand {
+  background-color: #fff;
+}
+
+.agent-0001-0003.short-form,
+.bg-primary.agent-0001-0003.short-form {
+  background: #fff;
+}
+
+.agent-0001-0003.short-form .main-content,
+.bg-primary.agent-0001-0003.short-form .main-content {
+  background: #fff;
+}
+
+.agent-0001-0003.short-form .main-content .panel,
+.bg-primary.agent-0001-0003.short-form .main-content .panel {
+  border-color: #e3e6f2;
+}
+
+.agent-0001-0003 .navbar-brand,
+.bg-primary.agent-0001-0003 .navbar-brand {
+  line-height: 50px;
+}
+
+.agent-0001-0003 .navbar-brand .heading-font,
+.bg-primary.agent-0001-0003 .navbar-brand .heading-font {
+  display: inline-block;
+  text-indent: -9999em;
+}
+
+.agent-0001-0003 .bg-primary,
+.bg-primary.agent-0001-0003 .bg-primary {
+  background-color: #3a444a;
+  color: #ffffff;
+}
+
+.agent-0001-0003 .btn-primary,
+.bg-primary.agent-0001-0003 .btn-primary {
+  color: #ffffff;
+  background-color: #007b3c;
+  border-color: #007b3c;
+}
+
+.agent-0001-0003 .btn-success,
+.bg-primary.agent-0001-0003 .btn-success {
+  color: #ffffff;
+  background-color: #007b3c;
+  border-color: #007b3c;
+}
+
+.agent-0001-0003 .app > .header,
+.bg-primary.agent-0001-0003 .app > .header {
+  background-color: #fff;
+  border-bottom: 1px solid #e3e6f2;
+}
+
+.agent-0001-0003 .app > .header .header-avatar,
+.bg-primary.agent-0001-0003 .app > .header .header-avatar {
+  border: 1px solid #e3e6f2;
+}
+
+.agent-0001-0003 .app > .header .nav .open a,
+.bg-primary.agent-0001-0003 .app > .header .nav .open a {
+  background-color: #dcdff0;
+}
+
+.agent-0001-0003 .app > .header .nav .open ul li a,
+.bg-primary.agent-0001-0003 .app > .header .nav .open ul li a {
+  background-color: #fff;
+}
+
+.agent-0001-0003 .app > .header .nav .open ul li a:hover,
+.bg-primary.agent-0001-0003 .app > .header .nav .open ul li a:hover {
+  background-color: #e3e6f2;
+}
+
+.agent-0001-0003 .app > .header .nav > li > a,
+.bg-primary.agent-0001-0003 .app > .header .nav > li > a {
+  color: #59595a;
+  background-color: unset !important;
+}
+
+.agent-0001-0003 .app > .header .nav > li > a:hover,
+.bg-primary.agent-0001-0003 .app > .header .nav > li > a:hover {
+  background-color: unset !important;
+}
+
+.agent-0001-0003 .app > .header .brand,
+.bg-primary.agent-0001-0003 .app > .header .brand {
+  background-color: #fff;
+}
+
+/* Adding Agent 0001-0001 information */
+.agent-0001-0001 .app > .header .nav > li > a,
+.bg-primary.agent-0001-0001 .app > .header .nav > li > a {
+  background-color: unset !important;
+}
+
+.agent-0001-0001 .app > .header .nav > li > a:hover,
+.bg-primary.agent-0001-0001 .app > .header .nav > li > a:hover {
+  background-color: unset !important;
+}
