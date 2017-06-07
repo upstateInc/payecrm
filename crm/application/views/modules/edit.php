@@ -30,7 +30,7 @@
 		</div>		
 		<div class="form-group">
 			<label for="exampleInputEmail1">Module Link</label>
-			<input type="text" class="form-control" id="moduleLink" name="moduleLink" placeholder="Module Link" value="<?php echo $query['moduleLink']; ?>" required>
+			<input type="text" class="form-control" id="moduleLink" name="moduleLink" placeholder="Module Link" value="<?php echo $query['moduleLink']; ?>" >
 		</div>		
 		<div class="form-group">
 			<label for="exampleInputEmail1">Module Description</label>
