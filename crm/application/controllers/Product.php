@@ -3,10 +3,10 @@ class Product extends CI_Controller {
 	
 	function __construct() {
 		parent::__construct();
-		$this->load->helper(array('url','form','html'));
-		$this->load->library(array('session','authentication','encryption','pagination'));
-		$this->authentication->is_loggedin($this->session->userdata('ADMIN_ID'));
-		$this->authentication->is_systemAdmin($this->session->userdata('ADMIN_PERMISSION'));
+		$this->load->helper(array('url','form','html','file'));
+		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
+		$this->load->model(array('common_model'));
+
 		$this->controllerFile	=	'product';
 		$this->viewfolder 		= 	'product';
 		$this->ProductTypeTable = 	't_productType';

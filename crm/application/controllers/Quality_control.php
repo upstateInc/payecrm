@@ -3,10 +3,10 @@ class Quality_control extends CI_Controller
 {
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper(array('url','form','html','dompdf', 'file'));
+		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
-		$this->load->model(array('adminuser','common_model','mail_model'));
-		$this->authentication->is_loggedin($this->session->userdata('ADMIN_ID'));
+		$this->load->model(array('common_model'));
+
 		$this->table = 't_master_success';
 		$this->viewfolder = 'quality_control/';
 		$this->controllerFile = 'quality_control/';

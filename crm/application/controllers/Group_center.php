@@ -3,11 +3,10 @@ class Group_center extends CI_Controller
 {
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper(array('url','form','html','dompdf', 'file'));
+		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
-		$this->load->model(array('adminuser','common_model','mail_model'));
-		$this->authentication->is_loggedin($this->session->userdata('ADMIN_ID'));
-		$this->authentication->is_systemAdmin($this->session->userdata('ADMIN_PERMISSION'));
+		$this->load->model(array('common_model'));
+
 		$this->table = 't_centerGroup';
 		$this->viewfolder = 'group_center/';
 		$this->controllerFile = 'group_center/';
