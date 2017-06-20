@@ -7,10 +7,10 @@ class Customer extends CI_Controller
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
 		$this->table = 't_customer';
-		$this->table1 = LOGINDETILS;
-		$this->table2 = LOGINFO;
+		//$this->table1 = LOGINDETILS;
+		//$this->table2 = LOGINFO;
 		$this->tableGroup = 't_group';
-		$this->tableCenter = 't_centerdb';
+		$this->tableCenter = 't_merchant';
 		$this->tableCenterGroup = 't_centerGroup';
 		$this->viewfolder = 'customer/';
 		$this->controllerFile = 'customer/';
@@ -20,7 +20,9 @@ class Customer extends CI_Controller
 		$message = '';
 		$data = array();
 		$order_by_fld = 'id';
+		$data['order_by_fld'] = 'id';
 		$order_by =	'ASC';
+		$data['order_by'] =	'ASC';
 		$offset = (int)$this->uri->segment(3,0);
 		$limit = 20;
 /**********************search*************************************/		
@@ -48,6 +50,10 @@ class Customer extends CI_Controller
 			$where_clause .="type != 'superadmin' AND ";
 		}*/
 		$data['name'] = '';		
+		$data['email'] = '';
+		$data['companyID'] = '';
+		$data['fname'] = '';
+		$data['lname'] = '';
 		$data['email'] = '';
 		//print_r($_POST);
 		if($this->input->post('hdnOrderByFld') != '')
@@ -113,7 +119,7 @@ class Customer extends CI_Controller
 		$query = $this->common_model->get_all_records($this->table, $where_clause,$order_by_fld,$order_by,$offset,$limit);
 		//echo $this->db->last_query();
 		//Pagination config
-		$config['base_url'] = base_url()."super_admin_user/index";
+		$config['base_url'] = base_url().$this->controllerFile."index";
 		$config['uri_segment'] = 3;
 		$config['total_rows'] = $total_rows;
 		$config['per_page'] = $limit;
@@ -141,7 +147,7 @@ class Customer extends CI_Controller
 		$data['message'] = $message;
 		$data['paginator'] = $paginator;
 		$data['query'] = $query;
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where ".$where_clause1." visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where ".$where_clause1." visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		$this->load->view($this->viewfolder.'list',$data);
 	}
@@ -469,17 +475,11 @@ class Customer extends CI_Controller
 		echo $username_exist;
 	}
 	public function pop() {
-		//$id = $this->uri->segment(4);
 		$id = $this->input->post('id');
 		$row = $this->common_model->Retrive_Record($this->table,$id);
-		//$country_name = $this->common_model->Retrive_Record(COUNTRY,$row['country']);
-		//$security_ques = $this->common_model->Retrive_Record(SECURITY_QUES,$row['security_question_id']);
 		$data = array();
 		$data['row'] = $row ;
-		
-		//$data['security_ques'] = $security_ques ;
-		//$data['country_name'] = $country_name ;
-		echo $this->load->view($this->viewfolder.'/view',$data);
+		echo $this->load->view($this->viewfolder.'/view', $data, true);
 	} //  end of pop_news
 	public function download() {
 	//to_excel($query, 'myfile'); // outputs myfile.xls
