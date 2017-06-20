@@ -9,7 +9,7 @@
 	   		echo '<div class="alert alert-warning no-radius no-margin padding-sm" role="alert"><strong><i class="fa fa-warning"></i> Warning:</strong> No Records Found.</div>';
 	  } 
 		
-		 if($query->num_rows() > 0){
+		 
 			
 	 ?>
 <!------------------------search section------------------------>			
@@ -49,7 +49,8 @@
 			</div>
 			</form>
 <!-------------------------------------------------------------->			
-            <div class="table-responsive">
+    <?php if($query->num_rows() > 0){ ?>
+	<div class="table-responsive">
             
             <table class="table">
               <thead>
