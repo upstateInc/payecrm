@@ -1,6 +1,5 @@
 <?php 
 $this->load->view('header');
-$this->load->view('left');
 if($selectedEmails1!=""){
 	$pieceEmail=explode(",",$selectedEmails1);
 }
@@ -273,7 +272,7 @@ if($selectedEmails1!=""){
 					<td><?php echo $row->productDuration; ?></td-->
 					<td><?php echo '$'. number_format(abs($row->grossPrice), 2); ?></td>
 					<td><?php echo $row->status; ?></td>
-					<td><a href="<?php echo site_url($this->controllerFile.'pop/'.$row->id);?>" class="btn btn-primary btn-xs" target="_blank"><span class="glyphicon glyphicon-search"></span></a></td>
+					<td><a href="<?php echo site_url($this->controllerFile.'pop/'.$row->id);?>" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-search"></span></a></td>
 					<!--td><?php echo $row->cardType; ?></td>
 					<td><?php echo $row->customer_state; ?></td>
 					<td><input type="checkbox" id="check<?php echo $row->id;?>" name="customerEmail" value="<?php echo $row->id; ?>" <?php if(is_array($pieceEmail)){if(in_array($row->id,$pieceEmail)){ echo "checked disabled"; } } ?> onclick="makedRecord('<?php echo $row->id; ?>');"></td-->

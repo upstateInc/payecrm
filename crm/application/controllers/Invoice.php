@@ -6,7 +6,7 @@ class Invoice extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'invoice/';
 		$this->controllerFile = 'invoice/';
@@ -48,6 +48,16 @@ class Invoice extends CI_Controller
 		$data['status'] = '';
 		$data['validated'] = '';
 		$data['no_of_days'] = '';
+		$data['selectedEmails1'] = '';
+		$data['invoiceDay'] = '';
+		$data['start_date'] = '';
+		$data['end_date'] = '';
+		$data['totChrgbakFee'] = '';
+		$data['totRefundFee'] = '';
+		$data['totWireFee'] = '';
+		$data['totProcessingFee'] = '';
+		$data['totACHFee'] = '';
+		$data['totalReserve'] = '';
 		//print_r($_POST);
 		if($this->uri->segment(3) == '' && $this->uri->segment(2)!='index')
 		{
@@ -251,7 +261,7 @@ class Invoice extends CI_Controller
 		$data['paginator'] = $paginator;
 		$data['query'] = $query;
 		
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		$gateway = $this->db->query("Select distinct(gatewayID) from  t_midmaster where visibility='Y' order by gatewayID ASC");
 		$data['gateway'] = $gateway;
@@ -346,29 +356,7 @@ class Invoice extends CI_Controller
 		
 		$InvoiceCC = $this->db->query("select a.invoiceEmails from t_centerdb as a left join t_savedInvoice as b on a.companyID = b.INVOICECOMPANYID where b.tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%' ")->row()->invoiceEmails;
 		
-		/*if($InvoiceCC != ""){
-			$where_clause = "tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%'";
-			$query = $this->common_model->get_all_records('t_invoiceDebitCredit', $where_clause,'id','desc',$offset,$limit);
-			$data['query'] = $query ;
 
-			$row = $this->common_model->Retrive_Record_By_Where_Clause1('t_savedInvoice',$where_clause);
-			$data['row'] = $row ;
-			require_once($_SERVER['DOCUMENT_ROOT'].'/system/'."email/email_function.php");
-			require_once($_SERVER['DOCUMENT_ROOT'].'/system/'."dompdf/dompdf_config.inc.php");
-			
-			$html = $this->load->view('invoice/invoice',$data,true);
-
-			$dompdf = new DOMPDF();
-			$dompdf->load_html($html);
-			$dompdf->render();
-			file_put_contents($tempInvoiceGenerationId.'.pdf', $dompdf->output());
-			
-			$emailContent = "Hello,<br>";
-			$emailContent .= "Kindly find the Invoice Attached with this email.";
-			
-			mail_file_attach( $email, 'Invoice', $emailContent, COMPANYEMAIL, $tempInvoiceGenerationId.'.pdf',$InvoiceCC,'', '' );
-			unlink($tempInvoiceGenerationId.'.pdf');	
-		}*/
 		echo 'success';
 	}
 	public function editDetailInvoice(){
@@ -387,16 +375,7 @@ class Invoice extends CI_Controller
 		$row['total'] = $row['quantity']*$row['price_each'];
 		$update = $this->common_model->Update_Record($row,'t_invoiceDebitCredit',$id);
 		echo 'success';
-		/*$row['rating'] = $this->input->post('rating') ;
-		$row['comment'] = $this->input->post('comment') ;
-		$row['qc_agentID'] = $this->session->userdata('ADMIN_ID');
-		$row['qc_Date'] = date('Y-m-d H:i:s') ;
-		//$row['status'] = $this->input->post('status') ;
 
-		$update = $this->common_model->Update_Record($row,$this->table,$id);
-		$message = setMessage('Record updated successfully.',"success");
-		$this->session->set_flashdata('message', $message);
-		redirect(site_url($this->controllerFile));	*/
 	}	// end of update
 	function delete(){
 		$data = array();
