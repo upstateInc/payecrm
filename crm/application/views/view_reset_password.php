@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
-  
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<html>  
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> PayeCRM</title>
+<title> PayeCRM:forget password</title>
 
 <link rel="icon" href="build/images/favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
 <link rel="shortcut icon" href="build/images/favicon.png" type="image/x-icon" sizes="16x16 32x32 64x64"/>
@@ -24,16 +23,7 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'></head>
     
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-68172138-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+  
 <head>
 
 <style>
@@ -79,40 +69,38 @@
 
       <div id="" class="animate form">
         <section class="login_content">
-			<?php if($message!=""){ ?>
-			
-				<?php echo $message; ?>
-			
-			<?php }
-			
-			?>
+			<?php if($message)  echo $message; ?>
 			<?php if($this->session->flashdata('wrongcred')) echo $this->session->flashdata('wrongcred');?>
-			
 			<div>
                 <h2 style="font-size:36px;"><img src="<?php echo base_url();?>images/logo.png" alt=""> PayeCRM</h2>
 
               </div>
-          <form method="POST" action="<?php echo base_url()?>home/login">
-            <h1>Login Form</h1>
-            <div>
-              <input type="email" id="email" name="email" class="form-control" placeholder="Email" required />
-            </div>
-            <div>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
-            </div>
-            <div style="width:100%;">
-			  <input type="submit" name="submit" value="Log in" class="btn btn-default login_submit" />
-            </div>
-            <div style="width:100%;">
-            <a class="login_reset_pass" href="<?php echo base_url()?>home/forget_password">Forgot Password</a> &nbsp;&nbsp; Not Registered?&nbsp;<a class="login_reset_pass" href="#">Sign Up!</a>
               
-             <!-- <a class="reset_pass" href="#">Forgot Password</a>&nbsp;
-              Not Registered?
-              <a class="reset_pass" href="#">Sign Up!</a>-->
+          <!-- form method="POST" action="<?php //echo base_url()?>home/login">  -->
+          
+<?php echo form_open('home/reset_password_send', array('method'=>"POST")); ?>
+            <h1>Reset password</h1>
+            
+            <!-- <div>
+              <input type="password" id="old_password" name="old_password" class="form-control" placeholder="Old Password" required/>
+            </div> -->
+            <div>
+              <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password" required/>
+            </div>
+            <div>
+              <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm Password" required/>
+            </div>
+            <div style="width:100%;">
+			  <input type="submit" name="submit" value="Reset" class="btn btn-default login_submit" />
+            </div>
+            <div style="width:100%;">
+            <a class="login_reset_pass" href="<?php echo base_url()?>home/login">Login</a> &nbsp;&nbsp; Not Registered?&nbsp;<a class="login_reset_pass" href="#">Sign Up!</a>
+              
+             
             </div>
             <div class="clearfix"></div>
-            
-          </form>
+            <input type="hidden" name="user_id" value="<?php echo $user_id;?>" />
+<?php echo form_close();?>
           <!-- form -->
         </section>
         <!-- content -->
@@ -159,7 +147,7 @@
     <!--<script src="build/js/scrolltopcontrol.js"></script>-->
     
 	<script>
-    $(function() {
+/*    $(function() {
       $('#demo').submit(function(event) {
         var form = $(this);
         $.ajax({
@@ -177,10 +165,7 @@
         });
         event.preventDefault(); // Prevent the form from submitting via the browser.
       });
-    });
+    });*/   
     </script>
-
   </body>
-
-<!-- Mirrored from www.checkcrm.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Apr 2017 10:20:47 GMT -->
 </html>
