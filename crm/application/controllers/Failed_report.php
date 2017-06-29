@@ -6,7 +6,7 @@ class Failed_report extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'failed_report/';
 		$this->controllerFile = 'failed_report/';
@@ -49,6 +49,9 @@ class Failed_report extends CI_Controller
 		$data['programName'] = '';
 		$data['decriptor'] = '';
 		$data['status'] = '';
+		$data['select_report'] = '';
+		$data['start_date'] = '';
+		$data['end_date'] = '';
 		//print_r($_POST);
 		if($this->uri->segment(3) == '' && $this->uri->segment(2)!='index')
 		{
@@ -343,7 +346,7 @@ class Failed_report extends CI_Controller
 		$data['paginator'] = $paginator;
 		$data['query'] = $query;
 		
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		$gateway = $this->db->query("Select distinct(gatewayID) from  t_midmaster where visibility='Y' order by gatewayID ASC");
 		$data['gateway'] = $gateway;
@@ -418,7 +421,7 @@ class Failed_report extends CI_Controller
 		$row = $this->common_model->Retrive_Record($this->table,$id);
 		$gatewayTransactionId = $row['gatewayTransactionId'];
 
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$row['companyID']."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$row['companyID']."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -639,7 +642,7 @@ class Failed_report extends CI_Controller
 		$gatewayID = $this->input->post('val') ;
 		//echo 'well done';
 		//exit;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$centerStatus = $row_center['status'];
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -865,7 +868,7 @@ class Failed_report extends CI_Controller
 		$gatewayID = $this->input->post('gatewayID') ; 
 		$companyID = $this->input->post('companyID') ; 
 		
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$row_transaction = $this->common_model->Retrive_Record_By_Where_Clause('t_master_success',"gatewayTransactionId like '%".$gatewayTransactionId."%'");		
 		$row_gateway = $this->common_model->Retrive_Record_By_Where_Clause('t_midmaster',"gatewayID like '%".$gatewayID."%'");
 		
@@ -961,7 +964,7 @@ class Failed_report extends CI_Controller
 		$productPeriod = $this->input->post('productPeriod') ;
 		$productDuration = $this->input->post('productDuration') ;
 		$finalProduct=$product_name.' - '.$productPeriod;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -990,7 +993,7 @@ class Failed_report extends CI_Controller
 		$productPeriod = $this->input->post('productPeriod') ; ;
 		/*$productDuration = $this->input->post('productDuration') ;
 		$finalProduct=$product_name.' - '.$productPeriod;*/
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -1019,7 +1022,7 @@ class Failed_report extends CI_Controller
 		$value = $this->input->post('val') ;
 		//echo 'well done';
 		exit;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -1048,7 +1051,7 @@ class Failed_report extends CI_Controller
 		$gatewayID = $this->input->post('gatewayID') ; 
 		$companyID = $this->input->post('companyID') ; 
 		
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$row_transaction = $this->common_model->Retrive_Record_By_Where_Clause('t_master_success',"gatewayTransactionId like '%".$gatewayTransactionId."%'");		
 		$row_gateway = $this->common_model->Retrive_Record_By_Where_Clause('t_midmaster',"gatewayID like '%".$gatewayID."%'");
 		
@@ -1301,10 +1304,10 @@ class Failed_report extends CI_Controller
 
 			
 			if($companyID=="" && $gatewayName==""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 			}
 			if($companyID!=""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where companyID='".$companyID."' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where companyID='".$companyID."' order by companyID ASC");
 			}
 			if($gatewayName!=""){
 				$gatewayView = $this->db->query("Select distinct(companyID) from t_gateway where gatewayName='".$gatewayName."' order by companyID ASC");
@@ -1416,7 +1419,7 @@ class Failed_report extends CI_Controller
 			/**********************Wire Fee**************************/
 			$transferValuetoShow=0;
 			$invoice_typeVal="";
-			$invoice_type=$this->db->query('SELECT invoice_type from  t_centerdb where companyID like "%'.$row->companyID.'%" ')->row();
+			$invoice_type=$this->db->query('SELECT invoice_type from  ".$this->tableCenter." where companyID like "%'.$row->companyID.'%" ')->row();
 			$invoice_typeVal=$invoice_type->invoice_type;			
 			if($totSettle->sum > 0){
 					$Wiredfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$row->companyID.'%"  and fees_type="Wire" and status="Y"')->row();
@@ -1526,7 +1529,7 @@ class Failed_report extends CI_Controller
 		$objWriter->save('php://output');
 		//load our new PHPExcel library
 	}
-}?>
+}
 
 
 

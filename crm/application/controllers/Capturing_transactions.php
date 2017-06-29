@@ -6,7 +6,7 @@ class Capturing_transactions extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'capturing_transactions/';
 		$this->controllerFile = 'capturing-transactions/';
@@ -69,6 +69,7 @@ class Capturing_transactions extends CI_Controller
 		$data['decriptor'] = '';
 		$data['status'] = '';
 		$data['ticket'] = '';
+		$data['selectedHighTickets'] = '';
 		//print_r($_POST);
 		//echo $this->input->post('authorizedShowHide');
 		if($this->uri->segment(3) == '' && $this->uri->segment(2)!='index')
@@ -371,7 +372,7 @@ class Capturing_transactions extends CI_Controller
 		$data['query1'] = $query1;
 		$data['query2'] = $query2;
 		
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		$gateway = $this->db->query("Select distinct(gatewayID) from  t_midmaster where visibility='Y' order by gatewayID ASC");
 		$data['gateway'] = $gateway;
@@ -483,7 +484,7 @@ class Capturing_transactions extends CI_Controller
 		$gatewayID = $this->input->post('val') ;
 		//echo 'well done';
 		//exit;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$centerStatus = $row_center['status'];
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -704,7 +705,7 @@ class Capturing_transactions extends CI_Controller
 		$gatewayID = $this->input->post('gatewayID') ; 
 		$companyID = $this->input->post('companyID') ; 
 		
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$row_transaction = $this->common_model->Retrive_Record_By_Where_Clause($this->table,"gatewayTransactionId like '%".$gatewayTransactionId."%'");		
 		$row_gateway = $this->common_model->Retrive_Record_By_Where_Clause('t_midmaster',"gatewayID like '%".$gatewayID."%'");
 		
@@ -800,7 +801,7 @@ class Capturing_transactions extends CI_Controller
 		$productPeriod = $this->input->post('productPeriod') ;
 		$productDuration = $this->input->post('productDuration') ;
 		$finalProduct=$product_name.' - '.$productPeriod;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -829,7 +830,7 @@ class Capturing_transactions extends CI_Controller
 		$productPeriod = $this->input->post('productPeriod') ; ;
 		/*$productDuration = $this->input->post('productDuration') ;
 		$finalProduct=$product_name.' - '.$productPeriod;*/
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];

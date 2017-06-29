@@ -6,12 +6,11 @@ class Master_success extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'master_success/';
 		$this->controllerFile = 'master_success/';
 		$this->namefile = 'master_success';
-		$this->tableCenter = 't_centerdb';
 		$this->tableCenterGroup = 't_centerGroup';
 	}
 	public function index() {
@@ -51,6 +50,15 @@ class Master_success extends CI_Controller
 		$data['programName'] = '';
 		$data['decriptor'] = '';
 		$data['status'] = '';
+		$data['start_date'] = '';
+		$data['end_date'] = '';
+		$data['fname'] = '';
+		$data['lname'] = '';
+		$data['cardType'] = '';
+		$data['cardNo'] = '';
+		$data['customer_email'] = '';
+		$data['invoice_id'] = '';
+		$data['customer_phone'] = '';
 		//print_r($_POST);
 		if($this->session->userdata('ADMIN_GROUP_ID')!=""){
 			$where_clause .= '( ';
@@ -310,7 +318,7 @@ class Master_success extends CI_Controller
 		$data['paginator'] = $paginator;
 		$data['query'] = $query;
 		
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where ".$where_clause1." visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where ".$where_clause1." visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		/*if($this->session->userdata('ADMIN_GROUP_ID')=="" && $this->session->userdata('ADMIN_GROUP_ID')==""){
 			$gateway = $this->db->query("Select distinct(gatewayID) from  t_gateway where ".$where_clause1." visibility='Y' order by gatewayID ASC");
@@ -566,7 +574,7 @@ class Master_success extends CI_Controller
 		$gatewayID = $this->input->post('val') ;
 		//echo 'well done';
 		//exit;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$centerStatus = $row_center['status'];
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -792,7 +800,7 @@ class Master_success extends CI_Controller
 		$gatewayID = $this->input->post('gatewayID') ; 
 		$companyID = $this->input->post('companyID') ; 
 		
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		//$row_transaction = $this->common_model->Retrive_Record_By_Where_Clause('t_master_success',"gatewayTransactionId like '%".$gatewayTransactionId."%'");		
 		$row_gateway = $this->common_model->Retrive_Record_By_Where_Clause('t_midmaster',"gatewayID like '%".$gatewayID."%'");
 		

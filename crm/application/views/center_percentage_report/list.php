@@ -129,7 +129,7 @@ if($where_clause==""){ $where_clause = 1;}
                 
             <?php 
 			if($companyID=="" && $gatewayName==""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 				if($this->session->userdata('ADMIN_GROUP_ID')!=""){
 					$where_clause1 .= '( ';
 					$centerquery = $this->common_model->get_all_records($this->tableCenterGroup, 'groupId = '.$this->session->userdata('ADMIN_GROUP_ID').'', 'id', 'ASC','','');
@@ -139,16 +139,16 @@ if($where_clause==""){ $where_clause = 1;}
 					}
 					$where_clause1  .= substr($new_where_clause, 0, -3);
 					$where_clause1 .= ' ) AND ';
-					$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where ".$where_clause1." visibility='Y' order by companyID ASC");
+					$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where ".$where_clause1." visibility='Y' order by companyID ASC");
 				}
 				
 			}
 			if($companyID!=""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where companyID='".$companyID."' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where companyID='".$companyID."' order by companyID ASC");
 			}
 			if($gatewayName!=""){
 				//$gatewayView = $this->db->query("Select distinct(companyID) from t_gateway where gatewayName='".$gatewayName."' order by companyID ASC");
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 			}
 			
 			$numCnt=0;
@@ -159,6 +159,8 @@ if($where_clause==""){ $where_clause = 1;}
 			$totalRefund=0;			
 			$totalChargeback=0;			
 			$totalGoodSale=0;			
+			$totalVoids=0;			
+			$totalFailed=0;			
 			foreach ($gatewayView->result() as $row){
 			if($numCnt%2==0){ $clr='#D4E6F1'; }else{  $clr='#F4F6F6'; }
 			$sumTot=""; 

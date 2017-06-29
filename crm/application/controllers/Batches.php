@@ -49,6 +49,8 @@ class Batches extends CI_Controller
 		$data['decriptor'] = '';
 		$data['actionTypeName'] = '';
 		$data['status'] = '';
+		$data['start_date'] = '';
+		$data['end_date'] = '';
 		//print_r($_POST);
 		if($this->session->userdata('ADMIN_GROUP_ID')!=""){
 			$where_clause .= '( ';

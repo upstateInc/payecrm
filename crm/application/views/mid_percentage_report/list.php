@@ -1,6 +1,4 @@
-<?php $this->load->view('header');
-?>
-<?php $this->load->view('left');?>
+<?php $this->load->view('header');?>
 <style>
 	.redClass{color:red;}
 
@@ -9,6 +7,7 @@
 </style>
 <div class="mainpanel">
 	<?php
+	
       if($query->num_rows() == 0){
 	   		echo '<div class="alert alert-warning no-radius no-margin padding-sm" role="alert"><strong><i class="fa fa-warning"></i> Warning:</strong> No Records Found.</div>';
 	  } 
@@ -122,6 +121,7 @@
 			$totalSettle=0;			
 			$totalRefund=0;			
 			$totalGoodSale=0;			
+			$totalChargeback=0;			
 			foreach ($gatewayView->result() as $row){
 			if($numCnt%2==0){ $clr='#D4E6F1'; }else{  $clr='#F4F6F6'; }
 			$sumTot=""; 

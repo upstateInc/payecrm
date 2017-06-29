@@ -6,7 +6,7 @@ class Generate_invoice extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'generate_invoice/';
 		$this->controllerFile = 'generate_invoice/';
@@ -14,7 +14,7 @@ class Generate_invoice extends CI_Controller
 	}
 	public function generate(){
 		$start_date=$this->input->post('start_date');
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' and status='Y' order by companyID ASC");	
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' and status='Y' order by companyID ASC");	
 		/*foreach ($companyIDName->result() as $row){
 			echo $row->companyID;
 		}
@@ -43,7 +43,7 @@ class Generate_invoice extends CI_Controller
 		
 			//echo $row->companyID; 
 			$companyID	= $row->companyID;
-			$rowCompany = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$row->companyID."%'");
+			$rowCompany = $this->common_model->Retrive_Record_By_Where_Clause($this->tableCenter,"companyID like '%".$row->companyID."%'");
 			$invoice_period = $rowCompany['invoice_period'];
 			$arrinvoiceEmails = $rowCompany['invoiceEmails'];
 			
@@ -129,7 +129,7 @@ $end_date = date('m/d/Y', $newdate1);
 				 } 
 			}
 			if($companyID!="" ){	
-				$invoice_type=$this->db->query('SELECT invoice_type from  t_centerdb where companyID like "%'.$companyID.'%" ')->row();
+				$invoice_type=$this->db->query('SELECT invoice_type from  ".$this->tableCenter." where companyID like "%'.$companyID.'%" ')->row();
 				$invoice_typeVal=$invoice_type->invoice_type;			
 				if($totGrossSale > 0){
 					$refundfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$companyID.'%"  and fees_type="Wire" and status="Y"')->row();
@@ -226,7 +226,7 @@ $end_date = date('m/d/Y', $newdate1);
 				$parts=explode('/',$rowInsert['STARTDATE']);
 				$newStartDate=$parts[2] . '-' . $parts[0] . '-' . $parts[1];
 
-				$nbr_of_reserve_weeks=$this->db->query("select nbr_of_reserve_weeks from t_centerdb where companyID='".$rowInsert['INVOICECOMPANYID']."'")->row()->nbr_of_reserve_weeks;
+				$nbr_of_reserve_weeks=$this->db->query("select nbr_of_reserve_weeks from ".$this->tableCenter." where companyID='".$rowInsert['INVOICECOMPANYID']."'")->row()->nbr_of_reserve_weeks;
 				$nbr_of_reserve_weeks=$nbr_of_reserve_weeks*7-1;				
 				
 				$parts1=explode('/',$rowInsert['ENDDATE']);
@@ -284,6 +284,9 @@ $end_date = date('m/d/Y', $newdate1);
 		$data['status'] = '';
 		$data['validated'] = '';
 		$data['no_of_days'] = '';
+		$data['selectedEmails1'] = '';
+		$data['invoiceDay'] = '';
+		$data['start_date'] = '';
 		//print_r($_POST);
 		if($this->uri->segment(3) == '' && $this->uri->segment(2)!='index')
 		{
@@ -487,7 +490,7 @@ $end_date = date('m/d/Y', $newdate1);
 		$data['paginator'] = $paginator;
 		$data['query'] = $query;
 		
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		$gateway = $this->db->query("Select distinct(gatewayID) from  t_midmaster where visibility='Y' order by gatewayID ASC");
 		$data['gateway'] = $gateway;
@@ -562,7 +565,7 @@ $end_date = date('m/d/Y', $newdate1);
 		$insert_id = $this->common_model->addRecord('t_savedInvoice',$row);
 		$this->db->query("Update t_invoiceDebitCredit set invoiceID='".$insert_id."' where tempInvoiceGenerationId ='".$tempInvoiceGenerationId."'");
 		
-		$InvoiceCC = $this->db->query("select a.invoiceEmails from t_centerdb as a left join t_savedInvoice as b on a.companyID = b.INVOICECOMPANYID where b.tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%' ")->row()->invoiceEmails;
+		$InvoiceCC = $this->db->query("select a.invoiceEmails from ".$this->tableCenter." as a left join t_savedInvoice as b on a.companyID = b.INVOICECOMPANYID where b.tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%' ")->row()->invoiceEmails;
 		
 		/*if($InvoiceCC != ""){
 			$where_clause = "tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%'";
@@ -861,7 +864,7 @@ $end_date = date('m/d/Y', $newdate1);
 	}
 	public function get_center_days(){
 		$companyID = $this->input->post('companyID');
-		$rowCompany = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$rowCompany = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		//echo $rowCompany['invoice_period'];
 		$arr['invoice_period'] = $rowCompany['invoice_period'];
 		$arr['invoice_day'] = $rowCompany['invoice_day'];
@@ -911,7 +914,7 @@ $end_date = date('m/d/Y', $newdate1);
 		
 		if($this->input->post('SendCompany')=='yes'){
 			//$InvoiceCC INVOICECOMPANYID
-			$InvoiceCC = $this->db->query("select a.invoiceEmails from t_centerdb as a left join t_savedInvoice as b on a.companyID = b.INVOICECOMPANYID where b.tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%' ")->row()->invoiceEmails;
+			$InvoiceCC = $this->db->query("select a.invoiceEmails from ".$this->tableCenter." as a left join t_savedInvoice as b on a.companyID = b.INVOICECOMPANYID where b.tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%' ")->row()->invoiceEmails;
 		}
 		//echo $InvoiceCC;
 		//exit;
@@ -984,7 +987,7 @@ $end_date = date('m/d/Y', $newdate1);
 		$insert_id = $this->common_model->addRecord('t_savedInvoice',$row);
 		$this->db->query("Update t_invoiceDebitCredit set invoiceID='".$insert_id."' where tempInvoiceGenerationId ='".$tempInvoiceGenerationId."'");
 		
-		$InvoiceCC = $this->db->query("select a.invoiceEmails from t_centerdb as a left join t_savedInvoice as b on a.companyID = b.INVOICECOMPANYID where b.tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%' ")->row()->invoiceEmails;
+		$InvoiceCC = $this->db->query("select a.invoiceEmails from ".$this->tableCenter." as a left join t_savedInvoice as b on a.companyID = b.INVOICECOMPANYID where b.tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%' ")->row()->invoiceEmails;
 		
 		//if($InvoiceCC != ""){
 			$where_clause = "tempInvoiceGenerationId like '%".$tempInvoiceGenerationId."%'";
@@ -1271,7 +1274,7 @@ $end_date = date('m/d/Y', $newdate1);
 		foreach($recordExist->result() as $val){
 			
 			$companyID=$val->INVOICECOMPANYID;
-			$rowCompany = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+			$rowCompany = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 			//$invoice_period = $rowCompany['invoice_period'];
 			$arrinvoiceEmails = $rowCompany['invoiceEmails'];			
 			//print_r($val);
@@ -1303,7 +1306,7 @@ $end_date = date('m/d/Y', $newdate1);
 			unlink($tempInvoiceGenerationId.'.pdf');			
 		}
 	}
-}?>
+}
 
 
 

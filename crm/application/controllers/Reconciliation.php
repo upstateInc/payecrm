@@ -6,12 +6,12 @@ class Reconciliation extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'reconciliation/';
 		$this->controllerFile = 'reconciliation/';
 		$this->namefile = 'reconciliation';
-		$this->tableCenter = 't_centerdb';
+		
 	}
 	public function index() {
 		$message = '';
@@ -47,6 +47,10 @@ class Reconciliation extends CI_Controller
 		$data['programName'] = '';
 		$data['decriptor'] = '';
 		$data['status'] = '';
+		$data['where_clause1'] = '';
+		$data['start_date'] = '';
+		$data['end_date'] = '';
+		$where_clause1 = '';
 		//print_r($_POST);
 		if($this->session->userdata('ADMIN_GROUP_ID')!=""){
 			$where_clause .= '( ';
@@ -269,7 +273,7 @@ class Reconciliation extends CI_Controller
 		$data['companyIDName'] = $companyIDName;		
 		$gateway = $this->db->query("Select distinct(gatewayID) from t_master_success order by gatewayID ASC");
 		$data['gateway'] = $gateway;*/
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where ".$where_clause1." visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where ".$where_clause1." visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		//$gateway = $this->db->query("Select distinct(gatewayID) from  t_midmaster where visibility='Y' order by gatewayID ASC");
 		if($this->session->userdata('ADMIN_GROUP_ID')=="" && $this->session->userdata('ADMIN_GROUP_ID')==""){
@@ -388,7 +392,7 @@ class Reconciliation extends CI_Controller
 		echo 'success';
 	}
 
-}?>
+}
 
 
 

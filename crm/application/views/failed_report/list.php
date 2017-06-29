@@ -115,10 +115,10 @@ if($where_clause==""){ $where_clause = 1;}
                 
             <?php 
 			if($companyID=="" && $gatewayName==""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 			}
 			if($companyID!=""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where companyID='".$companyID."' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where companyID='".$companyID."' order by companyID ASC");
 			}
 			if($gatewayName!=""){
 				$gatewayView = $this->db->query("Select distinct(companyID) from t_gateway where gatewayName='".$gatewayName."' order by companyID ASC");
@@ -133,6 +133,7 @@ if($where_clause==""){ $where_clause = 1;}
 			$totalChargeback=0;			
 			$totalGoodSale=0;
 			$sumTotFailedCnt=0;			
+			$totalFailed=0;			
 			foreach ($gatewayView->result() as $row){
 			if($numCnt%2==0){ $clr='#D4E6F1'; }else{  $clr='#F4F6F6'; }
 			$sumTot=""; 

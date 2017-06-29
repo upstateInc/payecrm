@@ -6,7 +6,7 @@ class Mid_report extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'mid_report/';
 		$this->controllerFile = 'mid_report/';
@@ -49,6 +49,9 @@ class Mid_report extends CI_Controller
 		$data['programName'] = '';
 		$data['decriptor'] = '';
 		$data['status'] = '';
+		$data['select_report'] = '';
+		$data['start_date'] = '';
+		$data['end_date'] = '';
 		//print_r($_POST);
 		if($this->session->userdata('ADMIN_NOMINEEID')!=""){
 			$where_clause .= '( ';
@@ -314,7 +317,7 @@ class Mid_report extends CI_Controller
 		$data['paginator'] = $paginator;
 		$data['query'] = $query;
 		
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		$gateway = $this->db->query("Select distinct(gatewayID) from  t_midmaster where ".$where_clause1." visibility='Y' order by gatewayID ASC");
 		$data['gateway'] = $gateway;
@@ -389,7 +392,7 @@ class Mid_report extends CI_Controller
 		$row = $this->common_model->Retrive_Record($this->table,$id);
 		$gatewayTransactionId = $row['gatewayTransactionId'];
 
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$row['companyID']."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$row['companyID']."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -610,7 +613,7 @@ class Mid_report extends CI_Controller
 		$gatewayID = $this->input->post('val') ;
 		//echo 'well done';
 		//exit;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$centerStatus = $row_center['status'];
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -836,7 +839,7 @@ class Mid_report extends CI_Controller
 		$gatewayID = $this->input->post('gatewayID') ; 
 		$companyID = $this->input->post('companyID') ; 
 		
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$row_transaction = $this->common_model->Retrive_Record_By_Where_Clause('t_invoice',"gatewayTransactionId like '%".$gatewayTransactionId."%'");		
 		$row_gateway = $this->common_model->Retrive_Record_By_Where_Clause('t_midmaster',"gatewayID like '%".$gatewayID."%'");
 		
@@ -932,7 +935,7 @@ class Mid_report extends CI_Controller
 		$productPeriod = $this->input->post('productPeriod') ;
 		$productDuration = $this->input->post('productDuration') ;
 		$finalProduct=$product_name.' - '.$productPeriod;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -961,7 +964,7 @@ class Mid_report extends CI_Controller
 		$productPeriod = $this->input->post('productPeriod') ; ;
 		/*$productDuration = $this->input->post('productDuration') ;
 		$finalProduct=$product_name.' - '.$productPeriod;*/
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -990,7 +993,7 @@ class Mid_report extends CI_Controller
 		$value = $this->input->post('val') ;
 		//echo 'well done';
 		exit;
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		
 		$config['hostname'] = $row_center['db_host'];
 		$config['username'] = $row_center['db_username'];
@@ -1019,7 +1022,7 @@ class Mid_report extends CI_Controller
 		$gatewayID = $this->input->post('gatewayID') ; 
 		$companyID = $this->input->post('companyID') ; 
 		
-		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('t_centerdb',"companyID like '%".$companyID."%'");
+		$row_center = $this->common_model->Retrive_Record_By_Where_Clause('".$this->tableCenter."',"companyID like '%".$companyID."%'");
 		$row_transaction = $this->common_model->Retrive_Record_By_Where_Clause('t_invoice',"gatewayTransactionId like '%".$gatewayTransactionId."%'");		
 		$row_gateway = $this->common_model->Retrive_Record_By_Where_Clause('t_midmaster',"gatewayID like '%".$gatewayID."%'");
 		

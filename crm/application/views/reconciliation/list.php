@@ -213,7 +213,7 @@
 					
 					<td><?php echo $row->invoice_id; ?></td>
 					<!--td><?php echo $row->batch_id; ?></td-->
-					<td><?php echo $row->customer_name; ?></td>
+					<td><?php echo $row->fname.' '.$row->lname; ?></td>
 					<td><?php echo substr($row->cardNo, -4); ?></td>
 					<!--td><?php echo $row->customer_phone; ?></td-->
 					<td><?php echo date('m-d-Y H:i:s',strtotime($row->rec_crt_date));?></td>

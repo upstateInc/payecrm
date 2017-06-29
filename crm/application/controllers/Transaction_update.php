@@ -6,12 +6,12 @@ class Transaction_update extends CI_Controller
 		$this->load->helper(array('url','form','html','file'));
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
-
+		$this->tableCenter = 't_merchant';
 		$this->table = 't_invoice';
 		$this->viewfolder = 'transaction_update/';
 		$this->controllerFile = 'transaction-update/';
 		$this->namefile = 'transaction_update';
-		$this->tableCenter = 't_centerdb';
+		
 		$this->tableCenterGroup = 't_centerGroup';
 	}
 	public function index() {
@@ -51,6 +51,16 @@ class Transaction_update extends CI_Controller
 		$data['programName'] = '';
 		$data['decriptor'] = '';
 		$data['status'] = '';
+		$data['start_date'] = '';
+		$data['end_date'] = '';
+		$data['fname'] = '';
+		$data['lname'] = '';
+		$data['customer_phone'] = '';
+		$data['customer_email'] = '';
+		$data['cardNo'] = '';
+		$data['cardType'] = '';
+		$data['invoice_id'] = '';
+		$data['transactionUpdate'] = '';
 		//print_r($_POST);
 		if($this->session->userdata('ADMIN_GROUP_ID')!=""){
 			$where_clause .= '( ';
@@ -310,7 +320,7 @@ class Transaction_update extends CI_Controller
 		$data['paginator'] = $paginator;
 		$data['query'] = $query;
 		
-		$companyIDName = $this->db->query("Select distinct(companyID) from t_centerdb where ".$where_clause1." visibility='Y' order by companyID ASC");
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where ".$where_clause1." visibility='Y' order by companyID ASC");
 		$data['companyIDName'] = $companyIDName;		
 		/*if($this->session->userdata('ADMIN_GROUP_ID')=="" && $this->session->userdata('ADMIN_GROUP_ID')==""){
 			$gateway = $this->db->query("Select distinct(gatewayID) from  t_gateway where ".$where_clause1." visibility='Y' order by gatewayID ASC");

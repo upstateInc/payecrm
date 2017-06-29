@@ -131,7 +131,7 @@ if($where_clause==""){ $where_clause = 1;}
                 
             <?php 
 			if($companyID=="" && $gatewayName==""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 				if($this->session->userdata('ADMIN_GROUP_ID')!=""){
 					$where_clause1 .= '( ';
 					$centerquery = $this->common_model->get_all_records($this->tableCenterGroup, 'groupId = '.$this->session->userdata('ADMIN_GROUP_ID').'', 'id', 'ASC','','');
@@ -141,15 +141,15 @@ if($where_clause==""){ $where_clause = 1;}
 					}
 					$where_clause1  .= substr($new_where_clause, 0, -3);
 					$where_clause1 .= ' ) AND ';
-					$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where ".$where_clause1." visibility='Y' order by companyID ASC");
+					$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where ".$where_clause1." visibility='Y' order by companyID ASC");
 				}
 			}
 			if($companyID!=""){
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where companyID='".$companyID."' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where companyID='".$companyID."' order by companyID ASC");
 			}
 			if($gatewayName!=""){
 				//$gatewayView = $this->db->query("Select distinct(companyID) from t_gateway where gatewayName='".$gatewayName."' order by companyID ASC");
-				$gatewayView = $this->db->query("Select distinct(companyID) from t_centerdb where visibility='Y' order by companyID ASC");
+				$gatewayView = $this->db->query("Select distinct(companyID) from ".$this->tableCenter." where visibility='Y' order by companyID ASC");
 			}
 			
 			$numCnt=0;
@@ -160,16 +160,22 @@ if($where_clause==""){ $where_clause = 1;}
 			$totalRefund=0;			
 			$totalChargeback=0;			
 			$totalGoodSale=0;			
+			$sumTotalTransferFee=0;			
 			foreach ($gatewayView->result() as $row){
 			if($numCnt%2==0){ $clr='#D4E6F1'; }else{  $clr='#F4F6F6'; }
 			$sumTot=""; 
 			$sumTotCnt=""; 
+			$totWireFee=0;
+			$totACHFee=0;	
+			$COMMISSIONFEE = 0	;	
+			$totProcessingFee = 0	;	
+			$sumTotalProcessingFee = 0	;	
 			//$groupTotCommission=0; 
 			
 			?>
 			<tr bgcolor="<?php echo $clr;?>">
 			<?php $where_clause1 = $where_clause." and companyID='".$row->companyID."'"; 
-				$invoice_type=$this->db->query('SELECT invoice_type from  t_centerdb where companyID like "%'.$row->companyID.'%" ')->row();
+				$invoice_type=$this->db->query('SELECT invoice_type from  '.$this->tableCenter.' where companyID like "%'.$row->companyID.'%" ')->row();
 				$invoice_typeVal=$invoice_type->invoice_type;
 			?>
 			<td style="color:#1B4F72;" ><?php echo $row->companyID; ?></td>
@@ -265,10 +271,13 @@ if($where_clause==""){ $where_clause = 1;}
 			
 			
 					$Wiredfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$row->companyID.'%"  and fees_type="Wire" and status="Y"')->row();
-					$totWireFee=$Wiredfees->fee;					
-					
+					if(!empty($Wiredfees)){
+						$totWireFee=$Wiredfees->fee;
+					}
 					$achfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$row->companyID.'%"  and fees_type="ACH" and status="Y"')->row();
-					$totACHFee=$achfees->fee;
+					if(!empty($achfees)){
+						$totACHFee=$achfees->fee;
+					}					
 					if($totACHFee > 0){
 						echo '$'.number_format($totACHFee,2);
 						$sumTot = $sumTot - $totACHFee;
@@ -286,13 +295,15 @@ if($where_clause==""){ $where_clause = 1;}
 			<td style="color:#E74C3C;" align="right">
 			<?php
 					$Processingfees=$this->db->query('SELECT fee,fee_type from  t_center_fees where companyID like "%'.$row->companyID.'%"  and fees_type="Processing"')->row();
-					$COMMISSIONFEE = $Processingfees->fee;
-					if($invoice_typeVal=='Net'){
-						
-						$totProcessingFee=($totSettle->sum+$totRef->sum)*$Processingfees->fee/100;
-					}
-					if($invoice_typeVal=='Gross'){
-						$totProcessingFee=$totSettle->sum*$Processingfees->fee/100;
+					if(!empty($Processingfees))
+					{
+						$COMMISSIONFEE = $Processingfees->fee;
+						if($invoice_typeVal=='Net'){
+							$totProcessingFee=($totSettle->sum+$totRef->sum)*$Processingfees->fee/100;
+						}
+						if($invoice_typeVal=='Gross'){
+							$totProcessingFee=$totSettle->sum*$Processingfees->fee/100;
+						}
 					}
 					if($totProcessingFee > 0){
 					echo '$'.number_format($totProcessingFee,2);
