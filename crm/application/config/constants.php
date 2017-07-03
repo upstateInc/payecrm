@@ -93,7 +93,7 @@ define('COMPANYUTILS', 				'http://localhost/payecrm/utils/');
 define('DBHOSTNAME', 				'localhost');
 define('DBUSERNAME', 				'root');
 define('DBPASSWORD', 				'');
-define('DBNAME', 					'payecrm');
+define('DBNAME', 					'payecrm_master');
 define('COMPANYBASEURL', 			'http://localhost/payecrm/');
 /******************Tables*************/
 define('ADMINUSER','t_admin'); 
