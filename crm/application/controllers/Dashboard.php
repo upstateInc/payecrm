@@ -28,4 +28,3 @@ class Dashboard extends CI_Controller {
 	
 }
 // end of class
-?>

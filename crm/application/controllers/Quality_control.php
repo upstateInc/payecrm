@@ -302,12 +302,4 @@ class Quality_control extends CI_Controller
 		echo 'success';
 	}
 
-}?>
-
-
-
-
-
-
-
-
+}

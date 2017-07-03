@@ -271,10 +271,3 @@ class Modules extends CI_Controller
 		echo 'success';
 	}	
 }
-?>
-
-
-
-
-
-

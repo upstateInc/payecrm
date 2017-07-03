@@ -562,8 +562,4 @@ class Transaction_update extends CI_Controller
 	}
 		
 
-}?>
-
-
-
-
+}

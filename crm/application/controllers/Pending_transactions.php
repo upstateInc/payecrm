@@ -1064,9 +1064,4 @@ class Pending_transactions extends CI_Controller
 		$data['result_notes'] 			= $this->common_model->get_all_records('t_customer_notes', $where_clause,$order_by_fld,$order_by,$offset,$limit);
 		$this->load->view($this->viewfolder.'/messages',$data);		
 	}
-}?>
-
-
-
-
-
+}

@@ -885,7 +885,7 @@ class Capturing_transactions extends CI_Controller
 		$update = $this->common_model->Update_Record($row,'t_system_settings',$id);
 		echo 'Order Field Changed Successfully';
 	}
-}?>
+}
 
 
 

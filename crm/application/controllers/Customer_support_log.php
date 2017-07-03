@@ -401,8 +401,7 @@ class Customer_support_log extends CI_Controller
 		echo 'success';
 	}
 
-}?>
-
+}
 
 
 

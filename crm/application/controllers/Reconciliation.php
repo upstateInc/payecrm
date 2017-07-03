@@ -393,9 +393,3 @@ class Reconciliation extends CI_Controller
 	}
 
 }
-
-
-
-
-
-

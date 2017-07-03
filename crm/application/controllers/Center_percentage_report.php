@@ -1544,7 +1544,7 @@ class Center_percentage_report extends CI_Controller
 		$objWriter->save('php://output');
 		//load our new PHPExcel library
 	}
-}?>
+}
 
 
 

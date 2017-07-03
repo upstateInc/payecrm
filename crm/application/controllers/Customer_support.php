@@ -415,8 +415,7 @@ class Customer_support extends CI_Controller
 		$update = $this->common_model->Update_Record($row,$this->table,$id);
 		echo 'Pending Status is Changed Successfully';
 	}
-}?>
-
+}
 
 
 

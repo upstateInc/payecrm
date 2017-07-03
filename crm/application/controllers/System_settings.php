@@ -234,12 +234,3 @@ class System_settings extends CI_Controller
 		redirect(site_url($this->controllerFile));
 	}
 }
-?>
-
-
-
-
-
-
-
-

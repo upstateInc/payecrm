@@ -1307,11 +1307,3 @@ $end_date = date('m/d/Y', $newdate1);
 		}
 	}
 }
-
-
-
-
-
-
-
-

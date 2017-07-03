@@ -211,10 +211,3 @@ class Group_center extends CI_Controller
 		echo 'success';
 	}	
 }
-?>
-
-
-
-
-
-

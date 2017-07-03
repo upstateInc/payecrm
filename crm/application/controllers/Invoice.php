@@ -1027,11 +1027,3 @@ class Invoice extends CI_Controller
 		//load our new PHPExcel library
 	}
 }
-
-
-
-
-
-
-
-

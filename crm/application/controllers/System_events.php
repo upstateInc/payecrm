@@ -237,12 +237,3 @@ class System_events extends CI_Controller
 		redirect(site_url($this->controllerFile));
 	}
 }
-?>
-
-
-
-
-
-
-
-

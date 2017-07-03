@@ -237,12 +237,3 @@ class Fees extends CI_Controller
 		redirect(site_url($this->controllerFile));
 	}
 }
-?>
-
-
-
-
-
-
-
-

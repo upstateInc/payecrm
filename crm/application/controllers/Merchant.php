@@ -333,18 +333,3 @@ class Merchant extends CI_Controller
 		echo 'success';
 	}	// end ofchange_is_active	
 }
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

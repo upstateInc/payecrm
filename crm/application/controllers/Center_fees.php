@@ -273,7 +273,7 @@ class Center_fees extends CI_Controller
 		echo 'Fess added to Center';	
 	}
 }
-?>
+
 
 
 

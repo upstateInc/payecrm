@@ -1082,8 +1082,4 @@ class Mid_selection extends CI_Controller
 		$data['row'] = $row ;
 		echo $this->load->view($this->viewfolder.'/showDetails',$data);
 	} //  end of pop_news	
-}?>
-
-
-
-
+}

@@ -508,7 +508,7 @@ class export extends CI_Controller
 		$val	=	$this->input->post('val');
 		$this->session->set_userdata('selectedEmails1', $val);
 	}
-}?>
+}
 
 
 

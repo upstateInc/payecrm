@@ -889,8 +889,4 @@ class Master_success extends CI_Controller
 		echo $StatusMsg;
 	}	
 
-}?>
-
-
-
-
+}

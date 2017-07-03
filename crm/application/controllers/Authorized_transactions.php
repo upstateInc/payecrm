@@ -437,7 +437,7 @@ class Authorized_transactions extends CI_Controller
 		echo 'success';
 	}
 
-}?>
+}
 
 
 
