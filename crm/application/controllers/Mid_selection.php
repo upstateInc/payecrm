@@ -49,6 +49,7 @@ class Mid_selection extends CI_Controller
 		$data['decriptor'] = '';
 		$data['seconds'] = '';
 		$data['status'] = '';
+		$data['select_report'] = '';
 		//print_r($_POST);
 		if($this->uri->segment(3) == '' && $this->uri->segment(2)!='index')
 		{
