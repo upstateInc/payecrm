@@ -194,8 +194,7 @@ class Home extends CI_Controller
 			$data ['message'] = 'Password mismatch';
 			$this->session->set_flashdata('wrongcred', 'Password mismatch');
 			redirect(base_url().'home/view_reset_password/'.base64_encode($user_id));
-		}
-		
+		}		
 	}
 	
 } # End of class

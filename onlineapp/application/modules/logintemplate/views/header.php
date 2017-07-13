@@ -6,14 +6,14 @@
         <script async="" src="<?php echo base_url();?>asset/analytics.js"></script><script type="text/javascript" src="<?php echo base_url();?>asset/jquery-1.js"></script>
     	<link rel="icon" type="image/png" href="http://www.payehub.com/connect/img/favicon.png"/>
     	  		
-	  		<link rel="stylesheet" href="https://www.payehub.com/css/bootstrap.min.css" type="text/css">
-	  		<link rel="stylesheet" href="https://www.payehub.com/css/main.css" type="text/css">
+	  		<link rel="stylesheet" href="http://www.payehub.com/css/bootstrap.min.css" type="text/css">
+	  		<link rel="stylesheet" href="http://www.payehub.com/css/main.css" type="text/css">
 	  		<!-- <link rel="stylesheet" href="<?php #echo base_url();?>asset/main.css" type="text/css">  -->	  		
 	  		<link rel="stylesheet" href="<?php echo base_url();?>asset/phubfront.css" type="text/css">
 	  		
-	  		<link rel="stylesheet" href="https://www.payehub.com/css/font-awesome.min.css" type="text/css">
+	  		<link rel="stylesheet" href="http://www.payehub.com/css/font-awesome.min.css" type="text/css">
 			<link rel="stylesheet" href="<?php echo base_url();?>asset/utility.css" type="text/css">
-			<link rel="stylesheet" href="https://www.payehub.com/css/custom-styles.css">
+			<link rel="stylesheet" href="http://www.payehub.com/css/custom-styles.css">
 	
 			<script type="text/javascript" src="<?php echo base_url();?>asset/jquery-ui.js"></script>
 			<script type="text/javascript" src="<?php echo base_url();?>asset/bootstrap.js"></script>
