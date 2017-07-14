@@ -1,10 +1,15 @@
 <?php $this->load->view('header');?>
-<?php $this->load->view('left');
-//print_r($companyIDName);
-?>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/easyui.css">
+<script type="text/javascript" src="<?php echo base_url();?>js/jquery.easyui.min.js"></script>
 <div class="mainpanel">
                     
-			
+	<div class="contentpanel contentpanel-mediamanager"> 
+		<?php //if($this->session->userdata('ADMIN_COMPANYID')!=""){?>
+			<div class="clearfix">
+			<div class="pull-right"><a href="<?php echo site_url($this->controllerFile.'/add');?>" class="btn btn-primary" data-toggle="modal" ><span class="glyphicon glyphicon-plus"></span> Add </a></div>
+			</div>
+			</br>
+		<?php //} ?>			
 
 	
 	<?php
@@ -22,29 +27,28 @@
 			<input type="hidden" name="hdnOrderBy" id="hdnOrderBy" value="<?php echo $order_by; ?>"/>
 			<input type="hidden" name="hdnOrderByFld" id="hdnOrderByFld" value="<?php echo $order_by_fld; ?>"/>			
 			<input type="hidden" name="search" value="search"/>
-			
-			
+			<?php if($this->session->userdata('ADMIN_COMPANYID')==""){?>
 			<div class="form-group">
-			
-            <select name="category" id="category" class="form-control">
-            <option value="">Select Category</option>	
-			<?php foreach($resultCategory->result() as $val){?>
-				 <option <?php if($category==$val->name){ ?> selected <?php } ?>value="<?php echo $val->name;?>"><?php echo $val->name;?></option>
-			<?php } ?>
-            </select>
-            </div>
-			
+			<label class="sr-only" for="exampleInputEmail2">companyID</label>
+			<select name="companyID" class="form-control">
+				<option value="">Select Center</option>
+				<?php foreach ($companyIDName->result() as $row){?>
+					<option <?php if($companyID==$row->companyID){?> selected <?php } ?> value="<?php echo $row->companyID; ?>"><?php echo $row->companyID; ?></option>
+				<?php } ?>
+			</select>
+			</div>
+			<?php } ?> 			
+			<div class="form-group">
+				<input type="text" name="productName" value="<?php echo $productName; ?>" class="form-control" placeholder="Product" />
+			</div>
 			
 			
 			<div class="form-group">
 			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
 			</div>
-			<!--a href="<?php echo base_url();?>gateway" style="font-weight:bold">View All</a-->
-			<a href="<?php echo base_url().$this->controllerFile; ?>" class="btn btn-primary"><i class="fa fa-align-justify"></i> Clear</a>
-			<div class="pull-right">
 			
-			<a href="<?php echo base_url().$this->controllerFile;?>/add_all_product" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Add All Products</a>
-			</div>
+			<a href="<?php echo base_url().$this->controllerFile; ?>" class="btn btn-primary"><i class="fa fa-align-justify"></i> Clear</a>
+			
 			</div>
 			
 			
@@ -56,39 +60,52 @@
             <table class="table">
               <thead>
                 <tr>
-					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='category')?'bold':'normal'?>;" href="javascript: hdnSort('category','<?php echo $order_by; ?>');">Category</a></th>
-					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='brandName')?'bold':'normal'?>;" href="javascript: hdnSort('brandName','<?php echo $order_by; ?>');">Brand Name</a></th>
-					
-					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='genericName')?'bold':'normal'?>;" href="javascript: hdnSort('genericName','<?php echo $order_by; ?>');">Generic Name</a></th>
-					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='dosage')?'bold':'normal'?>;" href="javascript: hdnSort('dosage','<?php echo $order_by; ?>');">Dosage</a></th>
+				<?php if($this->session->userdata('ADMIN_COMPANYID')==""){?>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='companyID')?'bold':'normal'?>;" href="javascript: hdnSort('companyID','<?php echo $order_by; ?>');">Center</a></th>
+				<?php } ?>	
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='productName')?'bold':'normal'?>;" href="javascript: hdnSort('productName','<?php echo $order_by; ?>');">Product Name</a></th>
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='ProductSupscriptionPeriod')?'bold':'normal'?>;" href="javascript: hdnSort('ProductSupscriptionPeriod','<?php echo $order_by; ?>');">Subscription Period</a></th>
 					<th>
-					<a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='pack')?'bold':'normal'?>;" href="javascript: hdnSort('pack','<?php echo $order_by; ?>');">Pack</a>
+					<a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='no_of_support')?'bold':'normal'?>;" href="javascript: hdnSort('no_of_support','<?php echo $order_by; ?>');">No of Support</a>
 					</th>
-					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='form')?'bold':'normal'?>;" href="javascript: hdnSort('form','<?php echo $order_by; ?>');">Form</a>
+					
 					</th>
-					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='cost')?'bold':'normal'?>;" href="javascript: hdnSort('cost','<?php echo $order_by; ?>');">Cost</a></th>
-					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='manufacturer')?'bold':'normal'?>;" href="javascript: hdnSort('manufacturer','<?php echo $order_by; ?>');">Manufacturer</a></th>					
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='amount')?'bold':'normal'?>;" href="javascript: hdnSort('amount','<?php echo $order_by; ?>');">Amount</a></th>
+					
+					
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='sku_name')?'bold':'normal'?>;" href="javascript: hdnSort('sku_name','<?php echo $order_by; ?>');">Sku Name</a></th>
+					
+					<th><a style="text-decoration:none;font-size:12px;font-weight:<?=($order_by_fld=='sku_number')?'bold':'normal'?>;" href="javascript: hdnSort('sku_number','<?php echo $order_by; ?>');">Sku No</a></th>
 					<th colspan="2">
-					<input type="button" name="Check_All" value="Check All" onClick="Check(document.frmSearch.product_id)" />
-					<a href="#" class="btn btn-primary" data-toggle="modal" onclick="addSelected();" ><span class="glyphicon glyphicon-plus"></span> Add Selected</a></th>
+						<a style="text-decoration:none;font-size:12px;">Action</a>
+					</th>
                 </tr>
               </thead>
               <tbody>
                 
               <?php foreach ($ResultProduct->result() as $row){   ?> 
                 <tr>
+					<?php if($this->session->userdata('ADMIN_COMPANYID')==""){?>
+						<td><?php echo $row->companyID; ?></td>
+					<?php } ?>
 					
-					<td><?php echo $row->category; ?></td>				
-					<td><?php echo $row->brandName; ?></td>					
-					<td><?php echo $row->genericName; ?></td>
-					<td><?php echo $row->dosage; ?></td>
-					<td><?php echo $row->pack; ?></td>
-					<td><?php echo $row->form; ?></td>
-					<td><?php echo $row->cost; ?></td>
-					<td><?php echo $row->manufacturer; ?></td>
+					<td><?php echo $row->productName; ?></td>					
+					<td><?php echo $row->ProductSupscriptionPeriod; ?></td>
+					<td><?php echo $row->no_of_support; ?></td>
 					
-					<td colspan="2"><input type="checkbox" name="product_id" value="<?php echo $row->id;?>"/></td>
-					<!--td>
+					<td><?php echo sprintf('%0.2f',$row->productPrice); ?></td>
+					<td><?php echo $row->sku_name; ?></td>
+					<td><?php echo $row->sku_number; ?></td>
+					
+					<!--td><?php echo $row->manufacturer; ?></td>
+					<td><input type="text" style="width:70px;" id="cost<?php echo $row->id;?>" value="<?php echo sprintf('%0.2f',$row->cost); ?>"/></td-->
+					<!--td><input type="text" style="width:70px;" id="amount<?php echo $row->id;?>" value="<?php echo sprintf('%0.2f',$row->amount); ?>"/></td>
+					<td><input type="text" id="sku_number<?php echo $row->id;?>" value="<?php echo $row->sku_number; ?>"/></td>
+					<td>
+					<a href="javascript:void(0);" onclick="update_product('<?php echo $row->id;?>');" class="btn btn-primary">Save</span></a>					
+					</td-->
+					<td>
+					<?php if($row->sku_number !=""){?>
 						<?php if($row->status=='Y'){ ?>
 							<div id="statusDiv<?php echo $row->id; ?>">
 							<a href='javascript: void(0);' onclick='javascript: change_status("<?php echo $row->id; ?>","N");'><?php print active_icon(); ?></a></div>
@@ -96,16 +113,27 @@
 							<div id="statusDiv<?php echo $row->id; ?>">
 							<a href='javascript: void(0)' onclick='javascript: change_status("<?php echo $row->id; ?>","Y");'><?php print inactive_icon(); ?></a></div>
 						<?php	} ?>
+					<?php }else{ ?>
+						<?php if($row->status=='Y'){ ?>
+							<div id="statusDiv<?php echo $row->id; ?>">
+								<?php print active_icon(); ?>
+							</div>
+						<?php }else{ ?>
+							<div id="statusDiv<?php echo $row->id; ?>">
+								<?php print inactive_icon(); ?>
+							</div>
+						<?php	} ?>						
+					<?php } ?>
 					</td>
 					<td>
-						<?php if($row->visibility=='Y'){ ?>
-							<div id="visibilityDiv<?php echo $row->id; ?>">
-							<a href='javascript: void(0);' onclick='javascript: change_visibility("<?php echo $row->id; ?>","N");'><?php print active_icon(); ?></a></div>
-						<?php }else{ ?>
-							<div id="visibilityDiv<?php echo $row->id; ?>">
-							<a href='javascript: void(0)' onclick='javascript: change_visibility("<?php echo $row->id; ?>","Y");'><?php print inactive_icon(); ?></a></div>
-						<?php	} ?>
-					</td-->			
+						<a target="_blank" href="<?php echo site_url($this->controllerFile.'/copy/'.$row->id);?>" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-pencil">Copy</span> </a>
+						
+						<a target="_blank" href="<?php echo site_url($this->controllerFile.'/edit/'.$row->id);?>" class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-pencil">Edit</span> </a>
+					
+						<a href="#" class="btn btn-primary btn-xs" onclick="javascript:var r=confirm('Are you sure to delete?'); if(r==true) { window.location.href='<?php 
+						echo site_url($this->controllerFile.'/delete_single/'.$row->id);?>'; }" ><span class="glyphicon glyphicon-trash"> </span> </a>
+					</td>
+								
                 </tr>
                <?php } ?>  
                 
@@ -131,6 +159,18 @@
 
         
 <script language="javascript">
+function update_product(id){
+	var cost = jQuery("#cost"+id).val();
+	var amount = jQuery("#amount"+id).val();
+	var sku_number = jQuery("#sku_number"+id).val();
+	$.post('<?php echo base_url().$this->controllerFile; ?>/update_product', 'id='+id+"&cost="+cost+"&amount="+amount+"&sku_number="+sku_number, function(data){
+		if(data) 
+		{
+			alert(data);
+			//location.reload();
+		}
+	});		
+}
 function Check(chk)
 {
 	//document.frmSearch.product_id

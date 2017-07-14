@@ -1,21 +1,22 @@
 <?php
-class Product extends CI_Controller {
+class Product_center extends CI_Controller {
 	
 	function __construct() {
 		parent::__construct();
-		$this->load->helper(array('url','form','html','file'));
-		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
-		$this->load->model(array('common_model'));
+		$this->load->helper(array('url','form','html'));
+		$this->load->library(array('session','authentication','encryption','pagination'));
+		$this->controllerFile	=	'product-center';
 		$this->tableCenter = 't_merchant';
-		$this->controllerFile	=	'product';
-		$this->viewfolder 		= 	'product';
+		$this->viewfolder 		= 	'product_center';
 		$this->ProductTypeTable = 	't_productType';
 		$this->ProductTable 	= 	't_product';
-		//$this->ProductTable 	= 	't_productMaster';
+		$this->table			= 	't_product';
 		$this->ProductCompany 	= 	't_product';
 		$this->categoryTable    =   't_category';
-		$this->namefile 		= 	'product';
+		$this->namefile 		= 	'product_center';
+		$this->tableCenterGroup = 't_centerGroup';
 		$this->load->model(array('common_model'));
+		
 	}
 	
 	
@@ -26,8 +27,26 @@ class Product extends CI_Controller {
 		$order_by =	'DESC';
 		$offset = (int)$this->uri->segment(3,0);
 		$limit = 20;
-		
 		$where_clause = "";
+		//$where_clause = "CompanyID ='".COMPANYID."' AND ";
+		$where_clause1 = "";
+		if($this->session->userdata('ADMIN_GROUP_ID')!=""){
+			$where_clause .= '( ';
+			$where_clause1 .= '( ';
+			$centerquery = $this->common_model->get_all_records($this->tableCenterGroup, 'groupId = '.$this->session->userdata('ADMIN_GROUP_ID').'', 'id', 'ASC','','');
+			
+			foreach($centerquery->result() as $row){
+				$new_where_clause .= "companyID = '".$row->companyID."' OR ";
+			}
+			$where_clause  .= substr($new_where_clause, 0, -3);
+			$where_clause1  .= substr($new_where_clause, 0, -3);
+			$where_clause .= ' ) AND ';
+			$where_clause1 .= ' ) AND ';
+		}		
+		if($this->session->userdata('ADMIN_COMPANYID')!=""){
+			$where_clause = "companyID = '".$this->session->userdata('ADMIN_COMPANYID')."' AND "; 
+			$where_clause1 = "companyID = '".$this->session->userdata('ADMIN_COMPANYID')."' AND "; 
+		}
 		
 		if($this->input->post('hdnOrderByFld') != '')
 		{
@@ -57,14 +76,14 @@ class Product extends CI_Controller {
 		{
 			$this->session->set_userdata('category', '');
 			$this->session->set_userdata('brandName', '');
-			$this->session->set_userdata('productName', '');
+			$this->session->set_userdata('productName', '');	
 			$this->session->set_userdata('companyID', '');
 		}
 		if($this->input->post('search')!= '')
 		{
 			$this->session->set_userdata('category', $this->input->post('category'));
 			$this->session->set_userdata('brandName', $this->input->post('brandName'));
-			$this->session->set_userdata('productName', $this->input->post('productName'));
+			$this->session->set_userdata('productName', $this->input->post('productName'));	
 			$this->session->set_userdata('companyID', $this->input->post('companyID'));
 		}
 		if($this->session->userdata('companyID') != '')
@@ -72,18 +91,6 @@ class Product extends CI_Controller {
 			$companyID = $this->session->userdata('companyID');
 			$where_clause .= "companyID LIKE '%$companyID%' AND ";
 			$data['companyID'] = $companyID;
-		}
-		if($this->session->userdata('category') != '')
-		{
-			$category = $this->session->userdata('category');
-			$where_clause .= "category = '".$category."' AND ";
-			$data['category'] = $category;
-		}		
-		if($this->session->userdata('brandName') != '')
-		{
-			$brandName = $this->session->userdata('brandName');
-			$where_clause .= "brandName = '".$brandName."' AND ";
-			$data['brandName'] = $brandName;
 		}		
 		if($this->session->userdata('productName') != '')
 		{
@@ -91,9 +98,21 @@ class Product extends CI_Controller {
 			$where_clause .= "productName like '%".$productName."%' AND ";
 			$data['productName'] = $productName;
 		}
+		if($this->session->userdata('brandName') != '')
+		{
+			$brandName = $this->session->userdata('brandName');
+			$where_clause .= "brandName = '".$brandName."' AND ";
+			$data['brandName'] = $brandName;
+		}		
+		if($this->session->userdata('genericName') != '')
+		{
+			$genericName = $this->session->userdata('genericName');
+			$where_clause .= "genericName = '".$genericName."' AND ";
+			$data['genericName'] = $genericName;
+		}		
 		$where_clause  = substr($where_clause, 0, -4);
 		/*************************************/
-		$total_rows 				    = $this->common_model->countAll($this->ProductTable,$where_clause);
+		$total_rows 				    = $this->common_model->countAll($this->ProductCompany,$where_clause);
 		$config['base_url'] = base_url().$this->controllerFile."/index";
 		$config['uri_segment'] = 3;
 		$config['total_rows'] = $total_rows;
@@ -121,38 +140,22 @@ class Product extends CI_Controller {
 		///////////////////
 		$data['message'] = $message;
 		$data['paginator'] = $paginator;
-		$data['ResultProduct'] 	= $this->common_model->get_all_records($this->ProductTable, $where_clause,$order_by_fld,$order_by,$offset,$limit);
-		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter."  where visibility='Y' order by companyID ASC");
-		$data['companyIDName'] = $companyIDName;
-		/*$data['resultCategory'] 	= $this->common_model->get_all_records($this->categoryTable, '','name','ASC','','');
-		$data['resultBrand'] 	= $this->db->query("Select distinct(brandName) from ".$this->ProductTable." order by brandName ASC ");
-		$data['resultGeneric'] 	= $this->db->query("Select distinct(genericName) from ".$this->ProductTable." order by genericName ASC ");*/
+		$data['ResultProduct'] 	= $this->common_model->get_all_records($this->ProductCompany, $where_clause,$order_by_fld,$order_by,$offset,$limit);
+		//$data['resultCategory'] 	= $this->common_model->get_all_records($this->categoryTable, '','name','ASC','','');
+		//$data['resultBrand'] 	= $this->db->query("Select distinct(brandName) from ".$this->ProductTable." order by brandName ASC ");
+		//$data['resultGeneric'] 	= $this->db->query("Select distinct(genericName) from ".$this->ProductTable." order by genericName ASC ");	
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter."  where ".$where_clause1." visibility='Y' order by companyID ASC");
+		$data['companyIDName'] = $companyIDName;		
+		
 		$this->load->view($this->viewfolder.'/list',$data);
 		
 	}
-	public function update_product(){
-		$id = $this->input->post('id');
-		//$update['cost'] = $this->input->post('cost');
-		$update['sku_number'] = $this->input->post('sku_number');
-		$update['sku_name'] = $this->input->post('sku_name');
-		$this->common_model->Update_Record($update,$this->ProductCompany,$id);
-		//echo $this->db->last_query();
-		echo 'Product Updated Successfully';
-	}
-	public function change_is_active() {
-		$id = $this->input->post('id') ; 
-		$value = $this->input->post('val') ; 
-		$row = array();
-		$row['status'] = $value;
-
-		$this->db->where('id', $id);
-		$this->db->update($this->ProductCompany, $row);
-		echo 'success';
-	}	// end ofchange_is_active	
 	function add(){
 		$data['resultCategory'] 	= $this->common_model->get_all_records($this->categoryTable, '','name','ASC','','');
+		$companyIDName = $this->db->query("Select distinct(companyID) from ".$this->tableCenter."  where ".$where_clause1." visibility='Y' order by companyID ASC");
+		$data['companyIDName'] = $companyIDName;		
 		$this->load->view($this->viewfolder.'/add',$data);
-	}	
+	}
 	function edit(){
 		$data = array();		
 		$message = '';
@@ -164,15 +167,31 @@ class Product extends CI_Controller {
 		$data['message'] = $message;		
 		$this->load->view($this->viewfolder.'/edit',$data);
 	}
+	function copy(){
+		$data = array();		
+		$message = '';
+		$id = $this->uri->segment(3);
+		$row = $this->common_model->Retrive_Record($this->ProductTable,$id);
+		//echo $this->db->last_query();
+		$data['resultCategory'] 	= $this->common_model->get_all_records($this->categoryTable, '','name','ASC','','');		
+		$data['query'] = $row ;
+		$data['message'] = $message;		
+		$this->load->view($this->viewfolder.'/copy',$data);
+	}
+	
 	public function insert(){
-		$row['category'] = $this->input->post('category');
-		$row['brandName'] = $this->input->post('brandName');
-		$row['genericName'] = $this->input->post('genericName');
+		$row['productName'] = $this->input->post('productName');
 		$row['dosage'] = $this->input->post('dosage');
 		$row['pack'] = $this->input->post('pack');
 		$row['form'] = $this->input->post('form');
-		$row['cost'] = $this->input->post('cost');
-		$row['manufacturer'] = $this->input->post('manufacturer');
+		$row['amount'] = $this->input->post('amount');
+		$row['sku_name'] = $this->input->post('sku_name');
+		$row['sku_number'] = $this->input->post('sku_number');
+		if($this->session->userdata('ADMIN_COMPANYID')!=""){
+			$row['companyID'] = $this->session->userdata('ADMIN_COMPANYID');
+		}else if($this->input->post('companyID')!=""){
+			$row['companyID'] = $this->input->post('companyID');
+		}
 		$insert_id = $this->common_model->addRecord($this->ProductTable,$row);	
 		$message = setMessage('Product added successfully.',"success");
 		$this->session->set_flashdata('message', $message);
@@ -180,19 +199,27 @@ class Product extends CI_Controller {
 	}	
 	public function update(){
 		$id = $this->input->post('id');
-		$row['category'] = $this->input->post('category');
-		$row['brandName'] = $this->input->post('brandName');
-		$row['genericName'] = $this->input->post('genericName');
+		$row['productName'] = $this->input->post('productName');
 		$row['dosage'] = $this->input->post('dosage');
 		$row['pack'] = $this->input->post('pack');
 		$row['form'] = $this->input->post('form');
-		$row['cost'] = $this->input->post('cost');
-		$row['manufacturer'] = $this->input->post('manufacturer');
+		$row['amount'] = $this->input->post('amount');
+		$row['sku_name'] = $this->input->post('sku_name');
+		$row['sku_number'] = $this->input->post('sku_number');
+		
 		$insert_id = $this->common_model->Update_Record($row,$this->ProductTable,$id);	
 		$message = setMessage('Product Updated Successfully.',"success");
 		$this->session->set_flashdata('message', $message);
 		redirect(site_url($this->controllerFile));	
 	}
+	function delete_single($id) {
+		$this->db->where('id', $id);
+		$this->db->delete($this->table); 
+		$message = setMessage('Record deleted successfully',"success");
+		$this->session->set_flashdata('message', $message);
+		redirect(site_url($this->controllerFile));
+	}	
+/******************************************************************/	
 	function list_product() {
 		
 		
@@ -477,27 +504,7 @@ class Product extends CI_Controller {
 		redirect('product/list-product', 'refresh');
 	}*/
 	public function add_all_product(){
-		$where_clause ="";
-		if($this->session->userdata('category') != '')
-		{
-			$category = $this->session->userdata('category');
-			$where_clause .= "category = '".$category."' AND ";
-			$data['category'] = $category;
-		}		
-		if($this->session->userdata('brandName') != '')
-		{
-			$brandName = $this->session->userdata('brandName');
-			$where_clause .= "brandName = '".$brandName."' AND ";
-			$data['brandName'] = $brandName;
-		}		
-		if($this->session->userdata('genericName') != '')
-		{
-			$genericName = $this->session->userdata('genericName');
-			$where_clause .= "genericName = '".$genericName."' AND ";
-			$data['genericName'] = $genericName;
-		}
-		$where_clause  = substr($where_clause, 0, -4);		
-		$ResultProduct 	= $this->common_model->get_all_records($this->ProductTable, $where_clause,'id','DESC','','');
+		$ResultProduct 	= $this->common_model->get_all_records($this->ProductTable, '','id','DESC','','');
 		foreach ($ResultProduct->result() as $row){	
 			$insertCart['category'] = $row->category;				
 			$insertCart['brandName'] = $row->brandName;					
@@ -506,7 +513,6 @@ class Product extends CI_Controller {
 			$insertCart['pack'] = $row->pack;
 			$insertCart['form'] = $row->form;
 			$insertCart['cost'] = $row->cost;
-			//$insertCart['amount'] = $row->cost;
 			$insertCart['manufacturer'] = $row->manufacturer;	
 			$insertCart['companyID'] = COMPANYID;	
 			$insertCart['orginalProductId'] = $row->id;
@@ -515,30 +521,27 @@ class Product extends CI_Controller {
 				$insertid = $this->common_model->Add_Record($insertCart,$this->ProductCompany);
 			}
 		}
-
-		$message = setMessage('Product added to company successfully.',"success");
-		$this->session->set_flashdata('message', $message);
-		redirect(site_url($this->controllerFile));			
+		$this->session->set_flashdata('success', 'Product updated successfully');
+		redirect('product', 'refresh');		
 	}
 	public function addSelectedProduct(){
 		$addSelectedProduct = $this->input->post("selected");
-		$companyID = $this->input->post("companyID");
 		//exit;
 		$addSelectedProductEach = explode(",",$addSelectedProduct);
 		foreach($addSelectedProductEach as $val){
 			$id=$val;
 			$row = $this->common_model->Retrive_Record_By_Where_Clause($this->ProductTable,'id = "'.$id.'"');
-			$insertCart['productName'] = $row['productName'];				
-			$insertCart['ProductSupscriptionPeriod'] = $row['ProductSupscriptionPeriod'];
-			$insertCart['no_of_support'] = $row['no_of_support'];
-			$insertCart['productDescription'] = $row['productDescription'];
-			$insertCart['discount'] = $row['discount'];
-			$insertCart['sku_name'] = $row['sku_name'];
-			$insertCart['sku_number'] = $row['sku_number'];
-			$insertCart['productPrice'] = $row['productPrice'];	
-			$insertCart['status'] = 'Y';	
-			$insertCart['companyID'] = $companyID;	
-			$rowSearch = $this->common_model->Retrive_Record_By_Where_Clause($this->ProductCompany,'productName = "'.$row['productName'].'" and companyID="'.$companyID.'"');
+			$insertCart['category'] = $row['category'];				
+			$insertCart['brandName'] = $row['brandName'];					
+			$insertCart['genericName'] = $row['genericName'];
+			$insertCart['dosage'] = $row['dosage'];
+			$insertCart['pack'] = $row['pack'];
+			$insertCart['form'] = $row['form'];
+			$insertCart['cost'] = $row['cost'];
+			$insertCart['manufacturer'] = $row['manufacturer'];	
+			$insertCart['companyID'] = COMPANYID;
+			$insertCart['orginalProductId'] = $row['id'];
+			$rowSearch = $this->common_model->Retrive_Record_By_Where_Clause($this->ProductCompany,'orginalProductId = "'.$row['id'].'" and companyID="'.COMPANYID.'"');
 			//print_r($rowSearch);
 			if(empty($rowSearch)){
 				$insertid = $this->common_model->Add_Record($insertCart,$this->ProductCompany);
@@ -547,5 +550,26 @@ class Product extends CI_Controller {
 		//echo $id;
 		echo "Product Added To Company";
 	}
+	public function change_is_active() {
+		$id = $this->input->post('id') ; 
+		$value = $this->input->post('val') ; 
+		$row = array();
+		$row['status'] = $value;
+
+		$this->db->where('id', $id);
+		$this->db->update($this->ProductCompany, $row);
+		echo 'success';
+	}	// end ofchange_is_active
+	public function update_product(){
+		$id = $this->input->post('id');
+		$update['cost'] = $this->input->post('cost');
+		$update['amount'] = $this->input->post('amount');
+		$update['sku_number'] = $this->input->post('sku_number');
+		//$this->db->query("Update ".$this->ProductCompany." set cost='".$cost."',sku_number='".$sku_number."' where id='".$id."'");
+		$this->common_model->Update_Record($update,$this->ProductCompany,$id);
+		//echo $this->db->last_query();
+		echo 'Product Updated Successfully';
+	}
 }
 // end of class
+?>

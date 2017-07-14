@@ -1,7 +1,4 @@
 <?php $this->load->view('header');?>
-<?php $this->load->view('left');
-//print_r($companyIDName);
-?>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/easyui.css">
 <script type="text/javascript" src="<?php echo base_url();?>js/jquery.easyui.min.js"></script>
 <div class="mainpanel">

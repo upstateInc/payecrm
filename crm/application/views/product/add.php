@@ -1,5 +1,4 @@
 <?php $this->load->view('header');?>
-<?php $this->load->view('left');?>
 <div class="mainpanel">
                     
 	<div class="contentpanel contentpanel-mediamanager"> 

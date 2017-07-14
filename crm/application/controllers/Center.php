@@ -7,7 +7,7 @@ class Center extends CI_Controller
 		$this->load->library(array('session','authentication','form_validation','email','upload','image_lib','pagination'));
 		$this->load->model(array('common_model'));
 
-		$this->table = 't_centerdb';
+		$this->table = 't_merchant';
 		$this->viewfolder = 'center/';
 		$this->controllerFile = 'center/';
 		$this->namefile = 'center';
