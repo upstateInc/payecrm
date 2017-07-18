@@ -1,0 +1,4 @@
+This folder is for general routine
+This contains the following file 
+centerStatusCheck.php - to check if the center with the company ID exists and if it is active 
+bootstrap.min.css - the bootstrap css file thats needed to load the bootstrap style elements.

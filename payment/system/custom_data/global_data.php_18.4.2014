@@ -1,0 +1,85 @@
+<?php
+session_start();
+ob_start();
+error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting( 0 );
+date_default_timezone_set('UTC');
+//Tables
+define('ADMINUSER','t_admin');
+define('USER','t_user');
+
+define('USERLOGINDETILS','t_userLogin');
+define('EMPLOYERUSER','t_employer');
+define('SITE_SETTINGS','t_settings');
+define('CMS','cms');
+define('SOCIALMEDIA','t_socialmedia');
+define('POSITIONTYPE','t_position_type');
+define('INDUSTRY','t_industry');
+define('COUNTRY','t_country');
+define('STATE','t_state');
+define('CITY','t_city');
+define('ZIP','t_zip');
+define('HEADER_MENU','t_headerMenu');
+define('FOOTER_MENU','t_footerMenu');
+define('CATEGORY','t_category');
+define('SKILLS','t_skills');
+define('JOBPOST','t_jobPosting');
+define('EDUCATION','t_education');
+define('CERTIFICATION','t_certification');
+define('RESUME','t_resume');
+define('EMPLOYER','t_employerInfo');
+define('WORKAUTHORIZATION','t_workAuthorizarion');
+define('EMPLOYMENTTYPE','t_employmentType');
+define('AD_SETTINGS','t_ad_settings');
+define('NEWSLETTER','t_newsletter');
+define('DASHBOARD_CMS','t_dashboard_cms');
+define('POLL','t_poll');
+define('POLL_QUESTION','t_poll_question');
+define('POLL_OPTION','t_poll_option');
+define('JOBAPPLIED','t_appliedJobs');
+define('JOBSAVED','t_savedJobs');
+define('FUNCTIONALAREA','t_functionalArea');
+define('AREAOFSPECIALIZATION','t_areaSpecialization');
+// Upload Path
+define("FLD_PROFILE_IMAGE", "upload/profileimage/");
+define("FLD_SOCIAL_MEDIA", "upload/socialmedia/");
+define("FLD_USER", "upload/userfile/");
+define("FLD_USER_RESUME", "upload/resume/");
+
+///////////////views//////////////////////
+define('VWFUNCTIONALAREA','vw_functionalArea');
+define('VWINDUSTRY','vw_industry');
+define('VWUSER','vw_t_user');
+define('VWLEVEL','vw_level');
+define('VWPLOCATION','vw_preferedLocation');
+define('VWSPECIALIZATION','vw_specialization');
+define('VWEXPERIENCE','vw_workExperience');
+define('VWLOCATION','vw_location');
+define('VWEDUCATION','vw_education');
+//utility
+define('FILENAME_PATTERN','/[\s,$#&\+\-()\[\];\'~`]/');
+
+//Website
+if($_SERVER["HTTP_HOST"]=="sirjobs.dev")
+{
+	define('str_SITE_URL','http://sirjobs.dev/');
+	define('str_SITE_URL_ADMIN','http://sirjobs.dev/admin/');
+	define('str_ADMIN_SITE_TITLE','Techinjobs :: Administrator Control Panel'); 
+	define('str_SITE_TITLE','Sirjobs');
+}
+else
+{
+	define('str_SITE_URL','http://techinjobs.com/');
+	define('str_SITE_URL_ADMIN','http://techinjobs.com/admin/');
+	define('str_ADMIN_SITE_TITLE','Techinjobs :: Administrator Control Panel'); 
+	define('str_SITE_TITLE','Techinjobs');
+}
+
+
+//General setting
+define('CUR_DATE',date('Y-m-d'));
+define('CUR_DATETIME',date('Y-m-d H:i:s'));
+define('ADMIN_EMAIL','superadminadmin@admin.com');
+define('CONTACT_US_EMAIL','superadminadmin@admin.com');
+
+define('SHOW',5);

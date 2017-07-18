@@ -1,0 +1,12 @@
+[20-Apr-2017 11:31:53 UTC] PHP Parse error:  syntax error, unexpected '$sale' (T_VARIABLE) in /home/payehub/public_html/system/gateways/authorize.net/authorizenet-php-api-master/payment.php on line 4
+[20-Apr-2017 11:48:38 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/payehub/public_html/system/gateways/authorize.net/authorizenet-php-api-master/void.php on line 2
+[20-Apr-2017 11:49:43 UTC] PHP Fatal error:  Class 'AuthorizeNetAIM' not found in /home/payehub/public_html/system/gateways/authorize.net/authorizenet-php-api-master/void.php on line 2
+[20-Apr-2017 12:04:56 UTC] PHP Fatal error:  Call to a member function priorAuthCapture() on a non-object in /home/payehub/public_html/system/gateways/authorize.net/authorizenet-php-api-master/capture.php on line 4
+[21-Apr-2017 03:53:43 UTC] PHP Parse error:  syntax error, unexpected 'print_r' (T_STRING) in /home/payehub/public_html/system/gateways/authorize.net/authorizenet-php-api-master/refund.php on line 5
+[25-Apr-2017 12:59:36 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/udriveon/public_html/system/authorize.net/authorizenet-php-api-master/singleReport.php on line 28
+[25-Apr-2017 13:00:50 UTC] PHP Fatal error:  Using $this when not in object context in /home/udriveon/public_html/system/authorize.net/authorizenet-php-api-master/singleReport.php on line 49
+[26-Apr-2017 05:11:13 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/udriveon/public_html/system/authorize.net/authorizenet-php-api-master/singleReport.php on line 63
+[26-Apr-2017 05:13:11 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/udriveon/public_html/system/authorize.net/authorizenet-php-api-master/singleReport.php on line 63
+[26-Apr-2017 05:13:25 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/udriveon/public_html/system/authorize.net/authorizenet-php-api-master/singleReport.php on line 63
+[26-Apr-2017 05:35:32 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/udriveon/public_html/system/authorize.net/authorizenet-php-api-master/singleReport.php on line 66
+[26-Apr-2017 06:35:49 UTC] PHP Warning:  mysqli_query(): Empty query in /home/udriveon/public_html/system/authorize.net/authorizenet-php-api-master/singleReport.php on line 108

@@ -1,0 +1,58 @@
+<?php
+session_start();
+ob_start();
+error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting( 0 );
+date_default_timezone_set('UTC');
+//Tables
+define('ADMIN','admin');
+define('USER','t_user');
+define('SITE_SETTINGS','t_settings');
+define('CMS','cms');
+define('SOCIALMEDIA','t_socialmedia');
+define('POSITIONTYPE','t_position_type');
+define('INDUSTRY','t_industry');
+define('COUNTRY','t_country');
+define('STATE','t_state');
+define('CITY','t_city');
+define('HEADER_MENU','t_headerMenu');
+define('FOOTER_MENU','t_footerMenu');
+define('CATEGORY','t_category');
+define('SKILLS','t_skills');
+define('JOBPOST','t_jobPosting');
+define('EDUCATION','t_education');
+define('CERTIFICATION','t_certification');
+
+// Upload Path
+define("FLD_PROFILE_IMAGE", "upload/profileimage/");
+define("FLD_SOCIAL_MEDIA", "upload/socialmedia/");
+define("FLD_USER", "upload/userfile/");
+
+
+//utility
+define('FILENAME_PATTERN','/[\s,$#&\+\-()\[\];\'~`]/');
+
+//Website
+if($_SERVER["HTTP_HOST"]=="sirjobs.dev")
+{
+	define('str_SITE_URL','http://sirjobs.dev/');
+	define('str_SITE_URL_ADMIN','http://sirjobs.dev/admin/');
+	define('str_ADMIN_SITE_TITLE','Techinjobs :: Administrator Control Panel'); 
+	define('str_SITE_TITLE','Sirjobs');
+}
+else
+{
+	define('str_SITE_URL','http://techinjobs.com/');
+	define('str_SITE_URL_ADMIN','http://techinjobs.com/admin/');
+	define('str_ADMIN_SITE_TITLE','Techinjobs :: Administrator Control Panel'); 
+	define('str_SITE_TITLE','Techinjobs');
+}
+
+
+//General setting
+define('CUR_DATE',date('Y-m-d'));
+define('CUR_DATETIME',date('Y-m-d H:i:s'));
+define('ADMIN_EMAIL','superadminadmin@admin.com');
+define('CONTACT_US_EMAIL','superadminadmin@admin.com');
+
+define('SHOW',5);
