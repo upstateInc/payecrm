@@ -455,6 +455,7 @@ a:hover, a:focus {
   margin: 0;
   width: 70%;
   float: right;
+  /*float:left;*/
 }
 .top_nav .navbar-right li {
   display: inline-block;
@@ -462,6 +463,7 @@ a:hover, a:focus {
 }
 .top_nav .dropdown-menu {
   min-width: 220px;
+  /*min-width: 20%;*/
 }
 .top_nav .dropdown-menu li {
   width: 100%;
@@ -519,6 +521,8 @@ body.nav-md ul.nav.child_menu li:before {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+/*    right: 2%;
+  width: 2%;*/
 }
 body.nav-md ul.nav.child_menu li:after {
   border-left: 1px solid #425668;
@@ -543,6 +547,18 @@ body.nav-md ul.nav.child_menu li:after {
 li.current-page {
   background: rgba(255, 255, 255, 0.05);
 }
+/*.nav.side-menu> li.active > a {
+  color: #ff0000;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 15px 0;
+  background: -webkit-gradient(linear, 50% 50%, 50% 100%, color-stop(0%, #5b6479), color-stop(100%, #4c5566)), #686e78;
+  background: -webkit-linear-gradient(#334556, #2C4257), #2A3F54;
+  background: -moz-linear-gradient(#334556, #2C4257), #2A3F54;
+  background: -o-linear-gradient(#334556, #2C4257), #2A3F54;
+  background: linear-gradient(#334556, #2C4257), #2A3F54;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+}*/
 .nav.side-menu> li.active > a {
   color: #ff0000;
   text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
@@ -5368,6 +5384,7 @@ ul.notifications {
   text-overflow: ellipsis;
   overflow: hidden;
   display: block;
+  /*margin:30px;*/
 }
 .tabbed_notifications .close {
   padding: 5px;
@@ -5410,7 +5427,7 @@ ul.notifications {
 
 .alert {
     padding: 15px;
-    margin: 20px !important;
+    margin: 20px 0 !important;
     border: 1px solid transparent;
     border-radius: 4px;
 	color:#4D4D4D;
