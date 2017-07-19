@@ -41,22 +41,22 @@
 
 		<div class="form-group">
 		<label for="exampleInputEmail1">City</label>
-		<input type="text" class="form-control" id="city" name="city" placeholder="City" <?php echo $query['city']; ?> >
+		<input type="text" class="form-control" id="city" name="city" placeholder="City" value="<?php echo $query['city']; ?>" />
 		</div>		
 		
 		<div class="form-group">
 		<label for="exampleInputEmail1">State</label>
-		<input type="text" class="form-control" id="state" name="state" placeholder="State" <?php echo $query['state']; ?>>
+		<input type="text" class="form-control" id="state" name="state" placeholder="State" value="<?php echo $query['state']; ?>" />
 		</div>		
 		
 		<div class="form-group">
 		<label for="exampleInputEmail1">Country</label>
-		<input type="text" class="form-control" id="country" name="country" placeholder="Country" <?php echo $query['country']; ?> >
+		<input type="text" class="form-control" id="country" name="country" placeholder="Country" value="<?php echo $query['country']; ?>" />
 		</div>		
 		
 		<div class="form-group">
 		<label for="exampleInputEmail1">Zip</label>
-		<input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" <?php echo $query['zip']; ?> >
+		<input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" value="<?php echo $query['zip']; ?>" />
 		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Admin Type*</label>

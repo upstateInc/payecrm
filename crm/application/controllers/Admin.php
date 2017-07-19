@@ -209,7 +209,7 @@ class Admin extends CI_Controller
 		$this->load->view ( $this->viewfolder . '/add', $data );
 	}
 	public function insert()
-	{
+	{	
 		$row ['fname'] = $this->input->post ( 'fname' );
 		$row ['lname'] = $this->input->post ( 'lname' );
 		$row ['alias'] = $this->input->post ( 'alias' );
@@ -336,7 +336,7 @@ class Admin extends CI_Controller
 		$this->load->view ( $this->viewfolder . '/edit', $data );
 	}
 	function update()
-	{
+	{	
 		$message_empty = '';
 		$data = array ();
 		$id = $this->input->post ( 'id' );
@@ -388,8 +388,8 @@ class Admin extends CI_Controller
 			$this->image_lib->initialize ( $config );
 			$this->image_lib->resize ();
 			$row ['image'] = $config ['image'];
-		}
-		$update = $this->common_model->Update_Record ( $row, $this->table, $id );
+		}		
+		$update = $this->common_model->Update_Record ( $row, $this->table, $id );		
 		
 		if ($this->input->post ( 'adminTypeId' ) != "")
 		{

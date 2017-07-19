@@ -11,7 +11,7 @@
               <ul class="nav side-menu">
 				<?php 
 				$getModuleDetails=$ci->homes->getMenu();
-				//echo $this->db->last_query();
+				#echo $this->db->last_query();
 				foreach($getModuleDetails->result() as $menuParent){
 					//print_r($menuParent);
 				?>

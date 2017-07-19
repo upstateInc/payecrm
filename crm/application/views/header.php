@@ -236,7 +236,7 @@
       
       <div class="page-title" style="border-bottom:1px solid #CCC;">
               <div class="">
-					<div class="col-md-3 col-sm-12 col-xs-12">
+					<div class="col-md-4 col-sm-12 col-xs-12">
 					<?php 
 						$moduleQuery=$this->db->query("select * from t_module where moduleLink='".$getModuleName."'")->row();						
 					?>
@@ -257,7 +257,7 @@
                     <div id="errMsgDiv" class="alert alert-danger" style="display:none;">
                     </div>
                  </div> 
-                 <div class="col-md-3 col-sm-12 col-xs-12">
+                 <div class="col-md-2 col-sm-12 col-xs-12">
                 	<h3>&nbsp;</h3>
                  </div> 
               </div><div class="clearfix"></div>

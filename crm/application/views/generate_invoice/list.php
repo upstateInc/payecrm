@@ -10,12 +10,10 @@ if($selectedEmails1!=""){
 </style>
 <div class="mainpanel">
 	<?php
-      if($query->num_rows() == 0){
+      if($query->num_rows() == 0)
+      {
 	   		echo '<div class="alert alert-warning no-radius no-margin padding-sm" role="alert"><strong><i class="fa fa-warning"></i> Warning:</strong> No Records Found.</div>';
-	  } 
-		
-		
-			
+	  }	
 	 ?>
 <!------------------------search section------------------------>			
 			<div class="errSuccessRoutineMsg alert alert-warning no-radius no-margin padding-sm" style="display:none;"></div>
@@ -28,7 +26,7 @@ if($selectedEmails1!=""){
 			<input type="hidden" name="invoiceDay" id="invoiceDay" value="<?php echo $invoiceDay;?>"/>
 			
 			<div class="form-group">			
-				<input type="text" id="datepiker" name="start_date" placeholder="Start date" value="<?php echo $start_date;?>" class="dp form-control">
+				<input type="text" id="datepiker" name="start_date" placeholder="Start date" value="<?php echo $start_date;?>" class="dp form-control" required />
 			</div>
 			
 			<div class="form-group" >
@@ -49,14 +47,6 @@ if($selectedEmails1!=""){
         </div><!-- mainpanel -->
     </div><!-- mainwrapper -->
 </section>
-
-
-        
-        
-        
-
-        
-
 
 <script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
 <script type="text/javascript">

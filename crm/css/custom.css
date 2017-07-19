@@ -1,4 +1,4 @@
-body.nav-sm .container.body .left_col {
+﻿body.nav-sm .container.body .left_col {
   width: 70px;
   padding: 0;
   position: fixed;
@@ -5410,9 +5410,10 @@ ul.notifications {
 
 .alert {
     padding: 15px;
-    margin-bottom: 0px !important;
+    margin: 20px !important;
     border: 1px solid transparent;
     border-radius: 4px;
+	color:#4D4D4D;
 }
 
 
