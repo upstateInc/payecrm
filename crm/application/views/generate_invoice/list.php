@@ -9,12 +9,20 @@ if($selectedEmails1!=""){
 	.redClass{color:red;}
 </style>
 <div class="mainpanel">
-	<?php
-      if($query->num_rows() == 0)
-      {
-	   		echo '<div class="alert alert-warning no-radius no-margin padding-sm" role="alert"><strong><i class="fa fa-warning"></i> Warning:</strong> No Records Found.</div>';
-	  }	
-	 ?>
+<?php
+if($query->num_rows() == 0)
+{
+	echo '<div class="alert alert-warning no-radius no-margin padding-sm" role="alert"><strong><i class="fa fa-warning"></i> Warning:</strong> No Records Found.</div>';
+}	
+
+//0 for Sunday, 6 for Saturday
+$pad = (int)date("w")-1;
+//echo $pad;
+$date = date('m/d/Y');
+$date = strtotime($date);
+$date = strtotime("-".$pad." day", $date);
+$start_date = date('m/d/Y', $date);
+?>
 <!------------------------search section------------------------>			
 			<div class="errSuccessRoutineMsg alert alert-warning no-radius no-margin padding-sm" style="display:none;"></div>
 			<form class="form-inline" role="form" name="frmSearch" id="frmSearch" action="<?php echo base_url().$this->controllerFile; ?>generate" method="POST" >
