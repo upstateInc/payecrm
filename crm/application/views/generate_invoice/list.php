@@ -16,11 +16,11 @@ if($query->num_rows() == 0)
 }	
 
 //0 for Sunday, 6 for Saturday
-$pad = (int)date("w")-1;
+$monday= (int)date("w")-1; // monday=1;
 //echo $pad;
 $date = date('m/d/Y');
 $date = strtotime($date);
-$date = strtotime("-".$pad." day", $date);
+$date = strtotime("-".$monday." day", $date);
 $start_date = date('m/d/Y', $date);
 ?>
 <!------------------------search section------------------------>			

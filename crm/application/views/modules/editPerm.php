@@ -1,3 +1,20 @@
+<?php
+$thisaction = array();
+foreach($thisModuleAction as $k=>$v)
+{
+	$thisaction[] = $v->actionId;
+}
+
+
+$thepermission = array();
+foreach($modulePermissions as $k=>$v)
+{
+	$thepermission[] = $v->actionId.'-'.$v->adminLevelId.'-'.$v->adminTypeId;
+}
+
+#echo "<pre>"; print_r($thepermission);
+?>
+
 <?php $this->load->view('header');?>
 <div class="mainpanel">
                     
@@ -7,33 +24,29 @@
 		<div class="pull-right"><a href="<?php echo base_url().$this->controllerFile; ?>" class="btn btn-primary"><span class="glyphicon glyphicon-th-list"></span> Back </a></div>
 	</div><br/>  
 	<!---------------------Form Section Starts-------------------------->
-	<form id="frmMain" name="frmMain" method="post" action="<?php echo base_url().$this->controllerFile;?>update" enctype="multipart/form-data">     
-    <input type="hidden" name="id" id="id" value="<?php echo $query['id']; ?>" />
+	<form id="frmMain" name="frmMain" method="post" action="<?php echo base_url().$this->controllerFile;?>editPermUpdate" enctype="multipart/form-data">     
+    <input type="hidden" name="id" id="id" value="<?php echo $obj_module['id']; ?>" />
 		<div class="form-group">
 			<label for="exampleInputEmail1">Module Actions</label>
 			<br/>
-			<?php 
-				$getActions=$this->db->query("select * from t_action where status='Y'");
-				foreach($getActions->result() as $valAction){ ?>
-					<input type="checkbox" name="action[]" value="<?php echo $valAction->id;?>"/><?php echo $valAction->action;?><br/>
-					
-					<?php
-					$getAdminLevels=$this->db->query("SELECT * FROM t_adminLevel where status='Y'");
-					foreach($getAdminLevels->result() as $adminLevels){
-						echo $adminLevels->level.'<br/>';
-						$getAdminType=$this->db->query("SELECT * FROM t_adminType where status='Y'");
-						foreach($getAdminType->result() as $adminType){ ?>
-							<input type="checkbox" name="permission[]" value="<?php echo $valAction->id;?>,<?php echo $adminLevels->id;?>,<?php echo $adminType->id;?>"/>
-							<?php
-							echo $adminType->type.'&nbsp;&nbsp;&nbsp;';
-						}
-						echo '<br/>';
-					}
-					echo '<br/>';
-					?>
-				<?php
-				}
-			?>
+<?php 
+foreach($Actions as $valAction): 
+?>
+					<input type="checkbox" name="action[]" value="<?php echo $valAction->id;?>" <?php if(in_array($valAction->id, $thisaction)) echo "checked";?> />&nbsp;<?php echo $valAction->action;?><br/>
+<?php
+	foreach($AdminLevels as $adminLevel):
+		echo $adminLevel->level.'<br/>';
+		
+		foreach($AdminTypes as $adminType): ?>
+			<input type="checkbox" name="permission[]" value="<?php echo $valAction->id;?>,<?php echo $adminLevel->id;?>,<?php echo $adminType->id;?>" <?php if(in_array($adminLevel->id.'-'.$adminLevel->id.'-'.$adminType->id, $thepermission)) echo "checked";?> />
+			<?php
+				echo $adminType->type.'&nbsp;&nbsp;&nbsp;';
+		endforeach;
+		echo '<br/>';
+	endforeach;
+	echo '<br/>';
+endforeach; 
+?>
 			
 		</div>		
 		
