@@ -4,15 +4,13 @@ foreach($thisModuleAction as $k=>$v)
 {
 	$thisaction[] = $v->actionId;
 }
-
-
 $thepermission = array();
 foreach($modulePermissions as $k=>$v)
 {
 	$thepermission[] = $v->actionId.'-'.$v->adminLevelId.'-'.$v->adminTypeId;
 }
 
-#echo "<pre>"; print_r($thepermission);
+#echo "<pre>"; print_r($thepermission); exit;
 ?>
 
 <?php $this->load->view('header');?>
@@ -34,13 +32,13 @@ foreach($Actions as $valAction):
 ?>
 					<input type="checkbox" name="action[]" value="<?php echo $valAction->id;?>" <?php if(in_array($valAction->id, $thisaction)) echo "checked";?> />&nbsp;<?php echo $valAction->action;?><br/>
 <?php
-	foreach($AdminLevels as $adminLevel):
+	foreach($AdminLevels as $k=>$adminLevel):
 		echo $adminLevel->level.'<br/>';
 		
 		foreach($AdminTypes as $adminType): ?>
-			<input type="checkbox" name="permission[]" value="<?php echo $valAction->id;?>,<?php echo $adminLevel->id;?>,<?php echo $adminType->id;?>" <?php if(in_array($adminLevel->id.'-'.$adminLevel->id.'-'.$adminType->id, $thepermission)) echo "checked";?> />
+			<label><input type="checkbox" name="permission[]" value="<?php echo $valAction->id;?>,<?php echo $adminLevel->id;?>,<?php echo $adminType->id;?>" <?php if(in_array($adminLevel->id.'-'.$adminLevel->id.'-'.$adminType->id, $thepermission)) echo "checked";?> />
 			<?php
-				echo $adminType->type.'&nbsp;&nbsp;&nbsp;';
+				echo $adminType->type.'&nbsp;&nbsp;&nbsp;</label>';
 		endforeach;
 		echo '<br/>';
 	endforeach;

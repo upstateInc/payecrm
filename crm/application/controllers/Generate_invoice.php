@@ -32,7 +32,7 @@ class Generate_invoice extends CI_Controller
 	}
 	public function generate()
 	{
-		// echo "<pre>"; print_r($this->input->post());exit;
+		#echo "<pre>"; print_r($this->input->post());exit;		
 		$start_date = $this->input->post ( 'start_date' );
 		$companyIDName = $this->db->query ( "Select distinct(companyID) from " . $this->tableCenter . " where visibility='Y' and status='Y' order by companyID ASC" );
 		
@@ -156,28 +156,31 @@ class Generate_invoice extends CI_Controller
 			
 			if ($companyID != "")
 			{
-				$invoice_type = $this->db->query ( 'SELECT invoice_type from  ".$this->tableCenter." where companyID like "%' . $companyID . '%" ' )->row ();
+				$invoice_type = $this->db->query ( 'SELECT invoice_type FROM  '.$this->tableCenter.' WHERE companyID like "%' . $companyID . '%" ')->row ();
 				$invoice_typeVal = $invoice_type->invoice_type;
 				if ($totGrossSale > 0)
 				{
-					$refundfees = $this->db->query ( 'SELECT fee,fee_type from  t_center_fees where companyID like "%' . $companyID . '%"  and fees_type="Wire" and status="Y"' )->row ();
+					$refundfees = $this->db->query ( 'SELECT fee,fee_type FROM t_center_fees WHERE companyID like "%' . $companyID . '%"  and fees_type="Wire" and status="Y"' )->row ();
 					$totWireFee = $refundfees->fee;
 					
-					$achfees = $this->db->query ( 'SELECT fee,fee_type from  t_center_fees where companyID like "%' . $companyID . '%"  and fees_type="ACH" and status="Y"' )->row ();
+					$achfees = $this->db->query ( 'SELECT fee,fee_type FROM t_center_fees WHERE companyID like "%' . $companyID . '%"  and fees_type="ACH" and status="Y"' )->row ();
 					$totACHFee = $achfees->fee;
 				}
 			}
 			if ($companyID != "")
-			{
-				$refundfees = $this->db->query ( 'SELECT fee,fee_type from  t_center_fees where companyID like "%' . $companyID . '%"  and fees_type="Processing"' )->row ();
-				$COMMISSIONFEE = $refundfees->fee;
+			{				
+				$COMMISSIONFEE= new \stdClass;
+				$refundfees = $this->db->query ( 'SELECT fee,fee_type FROM t_center_fees WHERE companyID like "%' . $companyID . '%"  and fees_type="Processing"')->row ();
+				if(isset($refundfees)) // Check added
+				{
+					$COMMISSIONFEE = $refundfees->fee;
+				}
 				if ($totGrossSale > 0)
 				{
-					$reservePercentage = $this->db->query ( "select fee,fee_type from t_center_fees where companyID like '%" . $companyID . "%'  and fees_type='Reserve'" )->row ();
+					$reservePercentage = $this->db->query ( "SELECT fee,fee_type FROM t_center_fees WHERE companyID like '%" . $companyID . "%'  and fees_type='Reserve'" )->row ();
 					$reservePercentageVal = $reservePercentage->fee;
 					if ($invoice_typeVal == 'Net')
-					{
-						
+					{	
 						$totProcessingFee = ($totSettle + $totRef) * $refundfees->fee / 100;
 						$totalReserve = ($totSettle + $totRef) * $reservePercentage->fee / 100;
 					}
@@ -309,6 +312,8 @@ class Generate_invoice extends CI_Controller
 		/**
 		 * ********************search************************************
 		 */
+		
+		
 		$where_clause = "(status like '%Refund%' or status like '%Settlement%' or status like '%Chargeback%') AND ";
 		$data ['id'] = '';
 		$data ['companyID'] = '';
@@ -322,9 +327,9 @@ class Generate_invoice extends CI_Controller
 		$data ['selectedEmails1'] = '';
 		$data ['invoiceDay'] = '';
 		$data ['start_date'] = '';
-		// print_r($_POST);
+		//print_r($_POST); exit;
 		if ($this->uri->segment ( 3 ) == '' && $this->uri->segment ( 2 ) != 'index')
-		{
+		{			
 			$this->session->set_userdata ( 'id', '' );
 			$this->session->set_userdata ( 'companyID', '' );
 			$this->session->set_userdata ( 'validated', '' );
@@ -351,7 +356,6 @@ class Generate_invoice extends CI_Controller
 		}
 		if ($this->input->post ( 'search' ) != '')
 		{
-			
 			$this->session->set_userdata ( 'id', $this->input->post ( 'id' ) );
 			$this->session->set_userdata ( 'companyID', $this->input->post ( 'companyID' ) );
 			$this->session->set_userdata ( 'validated', $this->input->post ( 'validated' ) );
@@ -467,8 +471,7 @@ class Generate_invoice extends CI_Controller
 			$yyyy_mm_dd1 = $parts [2] . '/' . $parts [0] . '/' . $parts [1];
 			$where_clause .= "`rec_up_date` >= ' " . $yyyy_mm_dd . " 00:00:00' AND `rec_up_date` <= ' " . $yyyy_mm_dd . " 23:59:59' AND";
 			$data ['start_date'] = $start_date;
-		}
-		
+		}		
 		if ($this->session->userdata ( 'end_date' ) != '')
 		{
 			$end_date = $this->session->userdata ( 'end_date' );
@@ -502,7 +505,7 @@ class Generate_invoice extends CI_Controller
 		}
 		$data ['total_rows'] = $total_rows;
 		$data ['where_clause'] = $where_clause;
-		// echo $this->db->last_query();
+		//echo $this->db->last_query();
 		// Pagination config
 		
 		$config ['base_url'] = base_url () . $this->controllerFile . "index";
@@ -542,6 +545,7 @@ class Generate_invoice extends CI_Controller
 		$data ['cardTypeName'] = $cardTypeName;
 		$data ['order_by_fld'] = $order_by_fld;
 		$data ['order_by'] = $order_by;
+			
 		$this->load->view ( $this->viewfolder . 'list', $data );
 	}
 	public function edit()

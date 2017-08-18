@@ -166,6 +166,7 @@ class Modules extends CI_Controller
 		
 		
 		$thismodulePermissions = $this->db->query("SELECT * FROM t_moduleaction AS mc LEFT JOIN t_adminmoduleaction AS amc ON mc.id = amc.moduleActionId WHERE mc.moduleId = ".$id);
+		error_log($this->db->last_query());
 		$modulePermissions = $thismodulePermissions->result();
 		
 		$data = array ();
@@ -190,6 +191,8 @@ class Modules extends CI_Controller
 		
 		
 		$this->db->query ( "Delete from t_moduleAction where moduleId =" . $insert_id );
+		//$this->db->query ( "DELETE FROM t_adminModuleAction WHERE moduleId =" . $insert_id );
+		
 		foreach ( $action as $val )
 		{
 			$newRow ['moduleId'] = $insert_id;
@@ -207,7 +210,9 @@ class Modules extends CI_Controller
 					$adminaction ['adminTypeId'] = $adminTypeId;
 					$adminaction ['adminLevelId'] = $adminLevelId;
 					$adminaction ['moduleActionId'] = $moduleActionInsert_id;
-					$adminModuleActionInsert_id = $this->common_model->addRecord ( 't_adminModuleAction', $adminaction );
+					$adminModuleActionInsert_id = $this->common_model->addRecord ( 't_adminModuleAction', $adminaction );					
+					error_log($this->db->last_query());
+					continue;
 				}
 			}
 		}

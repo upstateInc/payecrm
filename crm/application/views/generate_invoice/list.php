@@ -47,7 +47,6 @@ $start_date = date('m/d/Y', $date);
 			</div>
 			
 
-
             
             
                                    
@@ -78,14 +77,4 @@ $start_date = date('m/d/Y', $date);
 
 </script>
         
-<?php $this->load->view('footer');?>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+<?php $this->load->view('footer');?>		
